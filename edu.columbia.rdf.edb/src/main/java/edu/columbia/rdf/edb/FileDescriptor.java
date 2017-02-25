@@ -71,7 +71,7 @@ public class FileDescriptor extends Dated {
 	 * @return the ext
 	 */
 	public String getExt() {
-		return Io.getFileExtension(mName);
+		return Io.getFileExt(mName);
 	}
 
 }
