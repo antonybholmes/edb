@@ -102,9 +102,9 @@ public class Species extends org.abh.common.bioinformatics.annotation.Species {
 			DatabaseResultsTable table = JDBCConnection.getTable(statement);
 
 			for (int i = 0; i < table.getRowCount(); ++i) {
-				Species o = new Species(table.getDataAsInt(i, 0),
-						table.getDataAsString(i, 1),
-						table.getDataAsString(i, 2));
+				Species o = new Species(table.getInt(i, 0),
+						table.getString(i, 1),
+						table.getString(i, 2));
 				
 				ret.put(o.getId(), o);
 			}

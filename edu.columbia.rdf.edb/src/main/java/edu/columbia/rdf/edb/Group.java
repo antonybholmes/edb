@@ -27,74 +27,42 @@
  */
 package edu.columbia.rdf.edb;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Collection;
 
-import org.abh.common.path.Path;
-
+import org.abh.common.Function;
+import org.abh.common.bioinformatics.annotation.Type;
+import org.abh.common.stream.Stream;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SampleTags.
+ * The Class Person.
  */
-public class SampleTags implements Iterable<SampleTag> {
-	
-	/** The m map. */
-	protected Map<Path, SampleTag> mMap = new HashMap<Path, SampleTag>();
-	
-
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	public Iterator<SampleTag> iterator() {
-		return mMap.values().iterator();
-	}
+public class Group extends Type {
 
 	/**
-	 * Gets the tag.
+	 * Instantiates a new person.
 	 *
-	 * @param path the path
-	 * @return the tag
+	 * @param id the id
+	 * @param firstName the first name
+	 * @param lastName the last name
 	 */
-	public SampleTag getTag(String path) {
-		return getTag(Path.create(path));
+	public Group(int id, String name) {
+		super(id, name);
 	}
 
 	/**
-	 * Maps a field to a specific tag object.
+	 * Create a comma separated string of group names.
 	 * 
-	 * @param field
+	 * @param groups
 	 * @return
 	 */
-	public SampleTag getTag(DataViewField field) {
-		return getTag(field.getPath());
-	}
+	public static String formatNames(Collection<Group> groups) {
+		return Stream.stream(groups).map(new Function<Group, String>() {
 
-	/**
-	 * Gets the tag.
-	 *
-	 * @param path the path
-	 * @return the tag
-	 */
-	public SampleTag getTag(Path path) {
-		return mMap.get(path);
-	}
-
-
-	/**
-	 * Adds the.
-	 *
-	 * @param tag the tag
-	 */
-	public void add(SampleTag tag) {
-		mMap.put(tag.getTag().getPath(), tag);
-	}
-
-
-
-
-	public int size() {
-		return mMap.size();
+			@Override
+			public String apply(Group g) {
+				return g.getName();
+			}})
+			.join(",");
 	}
 }

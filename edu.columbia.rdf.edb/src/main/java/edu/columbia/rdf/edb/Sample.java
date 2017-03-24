@@ -56,29 +56,32 @@ public class Sample extends Dated implements FormattedTxt {
 
 	/** The m experiment. */
 	private Experiment mExperiment;
-	
+
 	/** The m expression. */
-	private Type mExpression;
-	
+	private Type mExpression = null;
+
 	/** The m organism. */
-	private Species mOrganism;
-	
+	private Species mOrganism = null;
+
 	/** The m geo. */
-	private GEO mGeo;
-	
+	protected GEO mGeo = null;
+
 	/** The m files. */
 	//private List<FileDescriptor> mFiles = new ArrayList<FileDescriptor>();
-	
+
 	/** The m tags. */
-	private SampleTags mTags = new SampleTags();
-	
+	protected SampleTags mTags = new SampleTags();
+
 	/** The m persons. */
-	private List<Person> mPersons = new ArrayList<Person>();
-	
+	protected List<Person> mPersons = new ArrayList<Person>(10);
+
+	/** The m persons. */
+	private List<Group> mGroups = new ArrayList<Group>(10);
+
 	/** The m aliases. */
 	private Set<String> mAliases = new TreeSet<String>();
 
-	private SampleState mState = SampleState.UNLOCKED;
+	private boolean mLocked = false;
 
 
 	/**
@@ -118,19 +121,6 @@ public class Sample extends Dated implements FormattedTxt {
 		mOrganism = organism;
 
 		mAliases.add(name);
-	}
-	
-	public void setState(SampleState state) {
-		mState = state;
-	}
-	
-	/**
-	 * Returns true if the sample is unlocked.
-	 * 
-	 * @return
-	 */
-	public SampleState getState() {
-		return mState;
 	}
 
 	/**
@@ -201,8 +191,12 @@ public class Sample extends Dated implements FormattedTxt {
 	 *
 	 * @return the persons
 	 */
-	public List<Person> getPersons() {
+	public Collection<Person> getPersons() {
 		return mPersons;
+	}
+
+	public Collection<Group> getGroups() {
+		return mGroups;
 	}
 
 	/* (non-Javadoc)
@@ -221,7 +215,7 @@ public class Sample extends Dated implements FormattedTxt {
 	public Set<String> getAliases() {
 		return mAliases;
 	}
-	
+
 
 	/**
 	 * Returns a tag associated with a sample. 
@@ -233,7 +227,7 @@ public class Sample extends Dated implements FormattedTxt {
 	public SampleTag getTag(Path path) {
 		return getTags().getTag(path);
 	}
-	
+
 	public SampleTag getTag(DataViewField field) {
 		return getTag(field.getPath());
 	}
@@ -257,7 +251,7 @@ public class Sample extends Dated implements FormattedTxt {
 	public static Map<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
 		return sortBy(samples, ORGANISM_PATH);
 	}
-	
+
 	/**
 	 * Sort by.
 	 *
@@ -277,6 +271,24 @@ public class Sample extends Dated implements FormattedTxt {
 		return map;
 	}
 
-	
+	/**
+	 * Returns true if the sample is a member of the locked group.
+	 * 
+	 * @return
+	 */
+	public boolean getLocked() {
+		if (!mLocked) {
+			for (Group g : mGroups) {
+				if (g.getName().equals("Locked")) {
+					mLocked = true;
+					break;
+				}
+			}
+		}
+
+		return mLocked;
+	}
+
+
 
 }
