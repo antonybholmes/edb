@@ -32,13 +32,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.abh.common.bioinformatics.annotation.Species;
 import org.abh.common.bioinformatics.annotation.Type;
 import org.abh.common.collections.DefaultTreeMap;
+import org.abh.common.collections.IterMap;
 import org.abh.common.collections.TreeSetCreator;
 import org.abh.common.path.Path;
 import org.abh.common.text.FormattedTxt;
@@ -53,6 +53,9 @@ public class Sample extends Dated implements FormattedTxt {
 			Path.create("/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform");
 
 	private static final Path ORGANISM_PATH = Path.create("/Sample/Organism");
+	
+	private static final Path CHIPSEQ_GENOME_PATH = 
+			Path.create("/ChIP-Seq/Sample/Genome");
 
 	/** The m experiment. */
 	private Experiment mExperiment;
@@ -238,8 +241,12 @@ public class Sample extends Dated implements FormattedTxt {
 	 * @param samples the samples
 	 * @return the map
 	 */
-	public static Map<String, Set<Sample>> sortByArrayDesign(final Collection<Sample> samples) {
+	public static IterMap<String, Set<Sample>> sortByArrayDesign(final Collection<Sample> samples) {
 		return sortBy(samples, ARRAY_PATH);
+	}
+	
+	public static IterMap<String, Set<Sample>> sortByGenome(final Collection<Sample> samples) {
+		return sortBy(samples, CHIPSEQ_GENOME_PATH);
 	}
 
 	/**
@@ -248,7 +255,7 @@ public class Sample extends Dated implements FormattedTxt {
 	 * @param samples the samples
 	 * @return the map
 	 */
-	public static Map<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
+	public static IterMap<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
 		return sortBy(samples, ORGANISM_PATH);
 	}
 
@@ -259,9 +266,9 @@ public class Sample extends Dated implements FormattedTxt {
 	 * @param path the path
 	 * @return the map
 	 */
-	public static Map<String, Set<Sample>> sortBy(final Collection<Sample> samples, 
+	public static IterMap<String, Set<Sample>> sortBy(final Collection<Sample> samples, 
 			Path path) {
-		Map<String, Set<Sample>> map = 
+		IterMap<String, Set<Sample>> map = 
 				DefaultTreeMap.create(new TreeSetCreator<Sample>());
 
 		for (Sample sample : samples) {
