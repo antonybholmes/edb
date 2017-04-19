@@ -34,7 +34,6 @@ import java.util.Map;
 import org.abh.common.path.Path;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SampleTags.
  */

@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb;
 
 import org.abh.common.NameObject;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class View.
  */

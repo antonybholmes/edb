@@ -31,7 +31,6 @@ import java.util.HashMap;
 
 import org.abh.common.bioinformatics.annotation.Type;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TypeMap.
  */

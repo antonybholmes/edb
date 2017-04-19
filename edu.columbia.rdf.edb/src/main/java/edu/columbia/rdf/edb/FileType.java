@@ -27,7 +27,6 @@
  */
 package edu.columbia.rdf.edb;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum FileType.
  */

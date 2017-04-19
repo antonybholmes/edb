@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb;
 
 import java.util.Date;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Descriptive.
  */

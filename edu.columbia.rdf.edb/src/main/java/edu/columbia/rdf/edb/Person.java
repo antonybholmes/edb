@@ -30,7 +30,6 @@ package edu.columbia.rdf.edb;
 import org.abh.common.bioinformatics.annotation.Type;
 import org.abh.common.text.TextUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */

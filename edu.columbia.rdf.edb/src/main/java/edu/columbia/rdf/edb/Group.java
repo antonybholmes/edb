@@ -33,7 +33,6 @@ import org.abh.common.Function;
 import org.abh.common.bioinformatics.annotation.Type;
 import org.abh.common.stream.Stream;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */

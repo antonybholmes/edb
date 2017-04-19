@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb;
 
 import org.abh.common.path.Path;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DataViewField.
  */

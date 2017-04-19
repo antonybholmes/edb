@@ -43,7 +43,6 @@ import org.abh.common.collections.TreeSetCreator;
 import org.abh.common.path.Path;
 import org.abh.common.text.FormattedTxt;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Sample.
  */

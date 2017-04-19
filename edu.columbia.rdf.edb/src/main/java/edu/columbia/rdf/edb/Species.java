@@ -36,7 +36,6 @@ import java.util.Map;
 import org.abh.common.database.DatabaseResultsTable;
 import org.abh.common.database.JDBCConnection;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Organism.
  */

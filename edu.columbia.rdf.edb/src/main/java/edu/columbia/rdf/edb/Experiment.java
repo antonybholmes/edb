@@ -35,7 +35,6 @@ import java.util.Set;
 import org.abh.common.collections.DefaultHashMap;
 import org.abh.common.collections.TreeSetCreator;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Experiment.
  */

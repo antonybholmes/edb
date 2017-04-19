@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb;
 
 import org.abh.common.bioinformatics.annotation.Entity;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GEO.
  */
