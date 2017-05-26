@@ -38,7 +38,7 @@ import org.abh.common.network.UrlBuilder;
  * if the current one becomes invalid to reduce the need to run SHA-256
  * repeatedly.
  * 
- * @author Antony Holmes
+ * @author Antony Holmes Holmes
  */
 public class OTKAuthUrl {
 

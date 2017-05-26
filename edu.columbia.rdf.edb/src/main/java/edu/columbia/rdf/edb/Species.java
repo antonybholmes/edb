@@ -85,6 +85,11 @@ public class Species extends org.abh.common.bioinformatics.annotation.Species {
 		super(id, name, scientificName);
 	}
 	
+	@JsonGetter("l")
+	public String getScientificName() {
+		return super.getScientificName();
+	}
+	
 	/**
 	 * Gets the organisms.
 	 *

@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 /**
  * Logins entries for a connection to a caArray server.
  *
- * @author Antony Holmes
+ * @author Antony Holmes Holmes
  */
 public class EDBWLogin implements XmlRepresentation, Serializable {
 	
