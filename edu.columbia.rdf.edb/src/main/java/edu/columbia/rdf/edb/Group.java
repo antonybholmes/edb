@@ -62,6 +62,6 @@ public class Group extends Type {
 			public String apply(Group g) {
 				return g.getName();
 			}})
-			.join(",");
+			.join(", ");
 	}
 }
