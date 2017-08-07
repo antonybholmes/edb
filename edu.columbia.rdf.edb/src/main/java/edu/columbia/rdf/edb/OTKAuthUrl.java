@@ -64,7 +64,7 @@ public class OTKAuthUrl {
 	private long mEpoch;
 
 	/**
-	 * Instantiates a new OTK auth url.
+	 * Instantiates a new totp auth url.
 	 *
 	 * @param url the url
 	 * @param user the user
@@ -85,9 +85,9 @@ public class OTKAuthUrl {
 	}
 
 	/**
-	 * Gets the OTK auth url.
+	 * Gets the totp auth url.
 	 *
-	 * @return the OTK auth url
+	 * @return the totp auth url
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
@@ -99,15 +99,17 @@ public class OTKAuthUrl {
 			// Only update the auth url object when we change counter bins
 			// since it will not change during the bin duration.
 			
-			//Generate an 8 digit totp code
-			int totp = TOTP.generateCTOTP8(mKey, counter); //toptCounter256(mKey, counter);
+			//Generate an 6 digit totp code
+			int totp = TOTP.generateCTOTP6(mKey, counter); //toptCounter256(mKey, counter);
 			
 			// Format the totp to ensure 8 digits
-			String formattedTotp = String.format("%08d", totp);
+			String formattedTotp = String.format("%06d", totp);
 			
-			mRestAuthUrl = new UrlBuilder(mUrl)
-					.resolve(mUser)
-					.resolve(formattedTotp);
+			mRestAuthUrl = mUrl
+					.param("user", mUser)
+					.param("totp", formattedTotp);
+					//.resolve(mUser)
+					//.resolve(formattedTotp);
 
 			mCounter = counter;
 		}

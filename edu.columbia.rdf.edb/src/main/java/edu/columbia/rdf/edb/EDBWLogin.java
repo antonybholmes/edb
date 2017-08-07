@@ -54,18 +54,18 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 	private String mServer = null;
 	
 	/** The m auth url. */
-	private UrlBuilder mAuthUrl;
+	//private UrlBuilder mAuthUrl;
 
 	/** The m key. */
 	private String mKey;
 
 	/** The m rest auth url. */
-	private UrlBuilder mRestAuthUrl;
+	//private UrlBuilder mRestAuthUrl;
 
 	/** The m user. */
 	private String mUser;
 
-	/** The m OTK auth url. */
+	/** The m totp auth url. */
 	private OTKAuthUrl mOTKAuthUrl;
 
 	/** The m url. */
@@ -99,15 +99,15 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 		
 		mUrl = new UrlBuilder(server);
 		
-		mApiUrl = new UrlBuilder(mUrl).resolve("api").resolve("v1");
+		mApiUrl = mUrl.resolve("api").resolve("v1");
 		
-		mAuthUrl = new UrlBuilder(mApiUrl).resolve("auth");
+		//mAuthUrl = new UrlBuilder(mApiUrl).resolve("auth");
 		
-		LOG.info("Login URL: {}", mAuthUrl);
+		LOG.info("Login URL: {}", mApiUrl);
 		
-		mRestAuthUrl = new UrlBuilder(mAuthUrl).resolve(getKey());
+		//mRestAuthUrl = mApiUrl.resolve(getKey());
 		
-		mOTKAuthUrl = new OTKAuthUrl(mAuthUrl, user, key, epoch, step);
+		mOTKAuthUrl = new OTKAuthUrl(mApiUrl, user, key, epoch, step);
 	}
 
 	/**
@@ -133,15 +133,15 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 	 *
 	 * @return the auth url
 	 */
-	public final UrlBuilder getAuthUrl() {
-		return mRestAuthUrl;
-	}
+	//public final UrlBuilder getAuthUrl() {
+	//	return mRestAuthUrl;
+	//}
 	
 	/**
 	 * Returns the authentication url an embedded time changing authentication 
 	 * key.
 	 *
-	 * @return the OTK auth url
+	 * @return the totp auth url
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
