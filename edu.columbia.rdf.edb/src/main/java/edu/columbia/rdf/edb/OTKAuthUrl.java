@@ -106,7 +106,7 @@ public class OTKAuthUrl {
 			String formattedTotp = String.format("%06d", totp);
 			
 			mRestAuthUrl = mUrl
-					.param("user", mUser)
+					.param("u", mUser)
 					.param("totp", formattedTotp);
 					//.resolve(mUser)
 					//.resolve(formattedTotp);

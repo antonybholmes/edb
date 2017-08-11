@@ -69,7 +69,8 @@ public class EDB {
 	public static final String HEADING_STATE = "state";
 	public static final String HEADING_DATE = "d"; //"date";
 	public static final String HEADING_GROUPS = "g"; //"groups";
-	public static final String HEADING_PID = "pid";
+	public static final String HEADING_PID = "p";
+	public static final String HEADING_COLOR = "c";
 	
 	private static Pattern NUMERICAL_ID_PATTERN = 
 			Pattern.compile("^\\d{0,20}$");

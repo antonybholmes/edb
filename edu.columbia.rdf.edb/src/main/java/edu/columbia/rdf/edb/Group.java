@@ -27,16 +27,23 @@
  */
 package edu.columbia.rdf.edb;
 
+import java.awt.Color;
 import java.util.Collection;
+import java.util.List;
 
 import org.abh.common.Function;
 import org.abh.common.bioinformatics.annotation.Type;
+import org.abh.common.collections.UniqueArrayList;
 import org.abh.common.stream.Stream;
 
 /**
  * The Class Person.
  */
 public class Group extends Type {
+
+	private static final Color DEFAULT_COLOR = Color.BLACK;
+	
+	private Color mColor;
 
 	/**
 	 * Instantiates a new person.
@@ -46,7 +53,17 @@ public class Group extends Type {
 	 * @param lastName the last name
 	 */
 	public Group(int id, String name) {
+		this(id, name, DEFAULT_COLOR);
+	}
+	
+	public Group(int id, String name, Color color) {
 		super(id, name);
+		
+		mColor = color;
+	}
+	
+	public Color getColor() {
+		return mColor;
 	}
 
 	/**
@@ -63,5 +80,35 @@ public class Group extends Type {
 				return g.getName();
 			}})
 			.join(", ");
+	}
+
+	/**
+	 * Return a list of unique colors ordered by the given group collection.
+	 * 
+	 * @param groups
+	 * @return
+	 */
+	public static List<Color> formatColors(Collection<Group> groups) {
+		
+		List<Color> ret = new UniqueArrayList<Color>(groups.size());
+		
+		/*
+		Map<String, Color> map = new HashMap<String, Color>();
+		
+		
+		for (Group group : groups) {
+			map.put(group.getName(), group.getColor());
+		}
+
+		for (String name : CollectionUtils.sortKeys(map)) {
+			ret.add(map.get(name));
+		}
+		*/
+		
+		for (Group group : groups) {
+			ret.add(group.getColor());
+		}
+		
+		return ret;
 	}
 }
