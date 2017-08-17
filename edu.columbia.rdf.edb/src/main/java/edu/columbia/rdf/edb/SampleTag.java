@@ -27,7 +27,7 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.bioinformatics.annotation.Type;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class SampleTag.

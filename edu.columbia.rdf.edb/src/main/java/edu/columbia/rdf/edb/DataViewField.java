@@ -27,7 +27,7 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.path.Path;
+import org.jebtk.core.path.Path;
 
 /**
  * The Class DataViewField.

@@ -29,9 +29,9 @@ package edu.columbia.rdf.edb;
 
 import java.io.UnsupportedEncodingException;
 
-import org.abh.common.TimeUtils;
-import org.abh.common.cryptography.TOTP;
-import org.abh.common.network.UrlBuilder;
+import org.jebtk.core.TimeUtils;
+import org.jebtk.core.cryptography.TOTP;
+import org.jebtk.core.network.UrlBuilder;
 
 /**
  * Generates base authentication URLs. Attempts to only create new URLs

@@ -29,7 +29,7 @@ package edu.columbia.rdf.edb;
 
 import java.util.Date;
 
-import org.abh.common.io.Io;
+import org.jebtk.core.io.Io;
 
 /**
  * A file descriptor represents a file available on the EDB. It does not

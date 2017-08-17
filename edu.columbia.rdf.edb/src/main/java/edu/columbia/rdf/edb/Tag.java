@@ -27,8 +27,8 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.path.Path;
+import org.jebtk.core.path.Path;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Tag.

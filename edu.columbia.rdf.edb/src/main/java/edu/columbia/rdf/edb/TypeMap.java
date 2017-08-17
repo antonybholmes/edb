@@ -29,7 +29,7 @@ package edu.columbia.rdf.edb;
 
 import java.util.HashMap;
 
-import org.abh.common.bioinformatics.annotation.Type;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class TypeMap.

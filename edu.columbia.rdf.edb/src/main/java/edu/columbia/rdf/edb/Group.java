@@ -31,10 +31,10 @@ import java.awt.Color;
 import java.util.Collection;
 import java.util.List;
 
-import org.abh.common.Function;
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.collections.UniqueArrayList;
-import org.abh.common.stream.Stream;
+import org.jebtk.core.Function;
+import org.jebtk.core.collections.UniqueArrayList;
+import org.jebtk.core.stream.Stream;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Person.

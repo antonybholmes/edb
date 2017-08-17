@@ -27,8 +27,8 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.text.TextUtils;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Person.
@@ -99,7 +99,7 @@ public class Person extends Type {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.abh.common.bioinformatics.annotation.Type#compareTo(org.abh.common.bioinformatics.annotation.Type)
+	 * @see org.jebtk.bioinformatics.annotation.Type#compareTo(org.jebtk.bioinformatics.annotation.Type)
 	 */
 	@Override
 	public int compareTo(Type t) {

@@ -29,7 +29,7 @@ package edu.columbia.rdf.edb;
 
 import java.util.Date;
 
-import org.abh.common.bioinformatics.annotation.Type;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * Dated represents EDB objects that have a date associated with them.

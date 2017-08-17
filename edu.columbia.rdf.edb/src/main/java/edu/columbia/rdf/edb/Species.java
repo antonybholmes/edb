@@ -33,13 +33,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.abh.common.database.DatabaseResultsTable;
-import org.abh.common.database.JDBCConnection;
+import org.jebtk.database.DatabaseResultsTable;
+import org.jebtk.database.JDBCConnection;
 
 /**
  * The Class Organism.
  */
-public class Species extends org.abh.common.bioinformatics.annotation.Species {
+public class Species extends org.jebtk.bioinformatics.annotation.Species {
 
 	/** The Constant SQL. */
 	private static final String SQL = 

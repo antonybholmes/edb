@@ -31,12 +31,12 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.abh.common.network.UrlBuilder;
-import org.abh.common.settings.Settings;
-import org.abh.common.settings.SettingsService;
-import org.abh.common.text.Join;
-import org.abh.common.text.TextUtils;
-import org.abh.common.xml.XmlRepresentation;
+import org.jebtk.core.network.UrlBuilder;
+import org.jebtk.core.settings.Settings;
+import org.jebtk.core.settings.SettingsService;
+import org.jebtk.core.text.Join;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.core.xml.XmlRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -107,7 +107,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 	 * @param step the step
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
-	private EDBWLogin(String server, 
+	protected EDBWLogin(String server, 
 			String user,
 			String fullKey,
 			String key,

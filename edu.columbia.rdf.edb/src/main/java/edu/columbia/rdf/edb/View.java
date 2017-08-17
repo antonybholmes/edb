@@ -27,7 +27,7 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.NameObject;
+import org.jebtk.core.NameObject;
 
 /**
  * The Class View.

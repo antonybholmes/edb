@@ -27,7 +27,7 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.abh.common.bioinformatics.annotation.Entity;
+import org.jebtk.bioinformatics.annotation.Entity;
 
 /**
  * The Class GEO.

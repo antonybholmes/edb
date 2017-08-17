@@ -35,13 +35,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.abh.common.bioinformatics.annotation.Species;
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.collections.DefaultTreeMap;
-import org.abh.common.collections.IterMap;
-import org.abh.common.collections.TreeSetCreator;
-import org.abh.common.path.Path;
-import org.abh.common.text.FormattedTxt;
+import org.jebtk.core.collections.DefaultTreeMap;
+import org.jebtk.core.collections.IterMap;
+import org.jebtk.core.collections.TreeSetCreator;
+import org.jebtk.core.path.Path;
+import org.jebtk.core.text.FormattedTxt;
+import org.jebtk.bioinformatics.annotation.Species;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Sample.
