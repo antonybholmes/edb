@@ -37,8 +37,7 @@ import java.util.List;
 public class DataView extends View implements Iterable<DataViewSection> {
 
 	/** The m sections. */
-	private List<DataViewSection> mSections =
-			new ArrayList<DataViewSection>();
+	private List<DataViewSection> mSections = new ArrayList<DataViewSection>();
 	
 	/**
 	 * Instantiates a new data view.
