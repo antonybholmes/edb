@@ -73,7 +73,7 @@ public class Group extends Type {
 	 * @return
 	 */
 	public static String formatNames(Collection<Group> groups) {
-		return Stream.stream(groups).map(new Function<Group, String>() {
+		return Stream.of(groups).map(new Function<Group, String>() {
 
 			@Override
 			public String apply(Group g) {
