@@ -34,46 +34,48 @@ import org.jebtk.core.path.Path;
  */
 public class DataViewField extends View implements Comparable<DataViewField> {
 
-	/** The m path. */
-	private Path mPath;
+  /** The m path. */
+  private Path mPath;
 
-	/**
-	 * Instantiates a new data view field.
-	 *
-	 * @param path the path
-	 * @param name the name
-	 */
-	public DataViewField(Path path, String name) {
-		super(name);
-		
-		mPath = path;
-	}
-	
-	/**
-	 * Gets the path.
-	 *
-	 * @return the path
-	 */
-	public Path getPath() {
-		return mPath;
-	}
+  /**
+   * Instantiates a new data view field.
+   *
+   * @param path
+   *          the path
+   * @param name
+   *          the name
+   */
+  public DataViewField(Path path, String name) {
+    super(name);
 
-	@Override
-	public int compareTo(DataViewField f) {
-		return mPath.compareTo(f.mPath);
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof DataViewField) {
-			return compareTo((DataViewField)o) == 0;
-		} else {
-			return false;
-		}
-	}
-	
-	@Override
-	public int hashCode() {
-		return mPath.hashCode();
-	}
+    mPath = path;
+  }
+
+  /**
+   * Gets the path.
+   *
+   * @return the path
+   */
+  public Path getPath() {
+    return mPath;
+  }
+
+  @Override
+  public int compareTo(DataViewField f) {
+    return mPath.compareTo(f.mPath);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof DataViewField) {
+      return compareTo((DataViewField) o) == 0;
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return mPath.hashCode();
+  }
 }

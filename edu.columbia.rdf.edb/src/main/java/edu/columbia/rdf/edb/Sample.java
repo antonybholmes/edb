@@ -48,253 +48,250 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class Sample extends Dated implements FormattedTxt {
 
-	private static final Path ARRAY_PATH = 
-			Path.create("/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform");
+  private static final Path ARRAY_PATH = Path
+      .create("/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform");
 
-	private static final Path ORGANISM_PATH = Path.create("/Sample/Organism");
-	
-	private static final Path CHIPSEQ_GENOME_PATH = 
-			Path.create("/ChIP-Seq/Sample/Genome");
+  private static final Path ORGANISM_PATH = Path.create("/Sample/Organism");
 
-	/** The m experiment. */
-	private Experiment mExperiment;
+  private static final Path CHIPSEQ_GENOME_PATH = Path.create("/ChIP-Seq/Sample/Genome");
 
-	/** The m expression. */
-	private Type mExpression = null;
+  /** The m experiment. */
+  private Experiment mExperiment;
 
-	/** The m organism. */
-	private Species mOrganism = null;
+  /** The m expression. */
+  private Type mExpression = null;
 
-	/** The m geo. */
-	protected GEO mGeo = null;
+  /** The m organism. */
+  private Species mOrganism = null;
 
-	/** The m files. */
-	//private List<FileDescriptor> mFiles = new ArrayList<FileDescriptor>();
+  /** The m geo. */
+  protected GEO mGeo = null;
 
-	/** The m tags. */
-	protected SampleTags mTags = new SampleTags();
+  /** The m files. */
+  // private List<FileDescriptor> mFiles = new ArrayList<FileDescriptor>();
 
-	/** The m persons. */
-	protected List<Person> mPersons = new ArrayList<Person>(10);
+  /** The m tags. */
+  protected SampleTags mTags = new SampleTags();
 
-	/** The m persons. */
-	private List<Group> mGroups = new ArrayList<Group>(10);
+  /** The m persons. */
+  protected List<Person> mPersons = new ArrayList<Person>(10);
 
-	/** The m aliases. */
-	private Set<String> mAliases = new TreeSet<String>();
+  /** The m persons. */
+  private List<Group> mGroups = new ArrayList<Group>(10);
 
-	private boolean mLocked = false;
+  /** The m aliases. */
+  private Set<String> mAliases = new TreeSet<String>();
 
+  private boolean mLocked = false;
 
-	/**
-	 * Instantiates a new sample.
-	 *
-	 * @param name the name
-	 */
-	public Sample(String name) {
-		this(-1,
-				null,
-				null,
-				name,
-				null,
-				null);
-	}
+  /**
+   * Instantiates a new sample.
+   *
+   * @param name
+   *          the name
+   */
+  public Sample(String name) {
+    this(-1, null, null, name, null, null);
+  }
 
-	/**
-	 * Create a new experiment.
-	 *
-	 * @param id the id
-	 * @param experiment the experiment
-	 * @param expression the expression
-	 * @param name the name
-	 * @param organism the organism
-	 * @param date the date
-	 */
-	public Sample(int id, 
-			Experiment experiment, 
-			Type expression, 
-			String name, 
-			Species organism,
-			Date date) {
-		super(id, name, date);
+  /**
+   * Create a new experiment.
+   *
+   * @param id
+   *          the id
+   * @param experiment
+   *          the experiment
+   * @param expression
+   *          the expression
+   * @param name
+   *          the name
+   * @param organism
+   *          the organism
+   * @param date
+   *          the date
+   */
+  public Sample(int id, Experiment experiment, Type expression, String name, Species organism, Date date) {
+    super(id, name, date);
 
-		mExperiment = experiment;
-		mExpression = expression;
-		mOrganism = organism;
+    mExperiment = experiment;
+    mExpression = expression;
+    mOrganism = organism;
 
-		mAliases.add(name);
-	}
+    mAliases.add(name);
+  }
 
-	/**
-	 * Gets the experiment.
-	 *
-	 * @return the experiment
-	 */
-	public Experiment getExperiment() {
-		return mExperiment;
-	}
+  /**
+   * Gets the experiment.
+   *
+   * @return the experiment
+   */
+  public Experiment getExperiment() {
+    return mExperiment;
+  }
 
-	/**
-	 * Gets the expression type.
-	 *
-	 * @return the expression type
-	 */
-	public Type getExpressionType() {
-		return mExpression;
-	}
+  /**
+   * Gets the expression type.
+   *
+   * @return the expression type
+   */
+  public Type getExpressionType() {
+    return mExpression;
+  }
 
-	/**
-	 * Gets the organism.
-	 *
-	 * @return the organism
-	 */
-	public Species getOrganism() {
-		return mOrganism;
-	}
+  /**
+   * Gets the organism.
+   *
+   * @return the organism
+   */
+  public Species getOrganism() {
+    return mOrganism;
+  }
 
-	/**
-	 * Sets the geo.
-	 *
-	 * @param geo the new geo
-	 */
-	public void setGEO(GEO geo) {
-		mGeo = geo;
-	}
+  /**
+   * Sets the geo.
+   *
+   * @param geo
+   *          the new geo
+   */
+  public void setGEO(GEO geo) {
+    mGeo = geo;
+  }
 
-	/**
-	 * Gets the geo.
-	 *
-	 * @return the geo
-	 */
-	public GEO getGEO() {
-		return mGeo;
-	}
+  /**
+   * Gets the geo.
+   *
+   * @return the geo
+   */
+  public GEO getGEO() {
+    return mGeo;
+  }
 
-	/**
-	 * Gets the files.
-	 *
-	 * @return the files
-	 */
-	//public List<FileDescriptor> getFiles() {
-	//	return mFiles;
-	//}
+  /**
+   * Gets the files.
+   *
+   * @return the files
+   */
+  // public List<FileDescriptor> getFiles() {
+  // return mFiles;
+  // }
 
-	/**
-	 * Gets the tags.
-	 *
-	 * @return the tags
-	 */
-	public SampleTags getTags() {
-		return mTags;
-	}
+  /**
+   * Gets the tags.
+   *
+   * @return the tags
+   */
+  public SampleTags getTags() {
+    return mTags;
+  }
 
-	/**
-	 * Gets the persons.
-	 *
-	 * @return the persons
-	 */
-	public Collection<Person> getPersons() {
-		return mPersons;
-	}
+  /**
+   * Gets the persons.
+   *
+   * @return the persons
+   */
+  public Collection<Person> getPersons() {
+    return mPersons;
+  }
 
-	public Collection<Group> getGroups() {
-		return mGroups;
-	}
+  public Collection<Group> getGroups() {
+    return mGroups;
+  }
 
-	/* (non-Javadoc)
-	 * @see org.abh.common.text.FormattedTxt#formattedTxt(java.lang.Appendable)
-	 */
-	public void formattedTxt(Appendable buffer) throws IOException {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.text.FormattedTxt#formattedTxt(java.lang.Appendable)
+   */
+  public void formattedTxt(Appendable buffer) throws IOException {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	/**
-	 * Gets the aliases.
-	 *
-	 * @return the aliases
-	 */
-	public Set<String> getAliases() {
-		return mAliases;
-	}
+  /**
+   * Gets the aliases.
+   *
+   * @return the aliases
+   */
+  public Set<String> getAliases() {
+    return mAliases;
+  }
 
+  /**
+   * Returns a tag associated with a sample. Equivalent to getTags().getTag(path).
+   *
+   * @param path
+   *          the path
+   * @return the tag
+   */
+  public SampleTag getTag(Path path) {
+    return getTags().getTag(path);
+  }
 
-	/**
-	 * Returns a tag associated with a sample. 
-	 * Equivalent to getTags().getTag(path).
-	 *
-	 * @param path the path
-	 * @return the tag
-	 */
-	public SampleTag getTag(Path path) {
-		return getTags().getTag(path);
-	}
+  public SampleTag getTag(DataViewField field) {
+    return getTag(field.getPath());
+  }
 
-	public SampleTag getTag(DataViewField field) {
-		return getTag(field.getPath());
-	}
+  /**
+   * Sort by array design.
+   *
+   * @param samples
+   *          the samples
+   * @return the map
+   */
+  public static IterMap<String, Set<Sample>> sortByArrayDesign(final Collection<Sample> samples) {
+    return sortBy(samples, ARRAY_PATH);
+  }
 
-	/**
-	 * Sort by array design.
-	 *
-	 * @param samples the samples
-	 * @return the map
-	 */
-	public static IterMap<String, Set<Sample>> sortByArrayDesign(final Collection<Sample> samples) {
-		return sortBy(samples, ARRAY_PATH);
-	}
-	
-	public static IterMap<String, Set<Sample>> sortByGenome(final Collection<Sample> samples) {
-		return sortBy(samples, CHIPSEQ_GENOME_PATH);
-	}
+  public static IterMap<String, Set<Sample>> sortByGenome(final Collection<Sample> samples) {
+    return sortBy(samples, CHIPSEQ_GENOME_PATH);
+  }
 
-	/**
-	 * Sort by organism.
-	 *
-	 * @param samples the samples
-	 * @return the map
-	 */
-	public static IterMap<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
-		return sortBy(samples, ORGANISM_PATH);
-	}
+  /**
+   * Sort by organism.
+   *
+   * @param samples
+   *          the samples
+   * @return the map
+   */
+  public static IterMap<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
+    return sortBy(samples, ORGANISM_PATH);
+  }
 
-	/**
-	 * Sort by.
-	 *
-	 * @param samples the samples
-	 * @param path the path
-	 * @return the map
-	 */
-	public static IterMap<String, Set<Sample>> sortBy(final Collection<Sample> samples, 
-			Path path) {
-		IterMap<String, Set<Sample>> map = 
-				DefaultTreeMap.create(new TreeSetCreator<Sample>());
+  /**
+   * Sort by.
+   *
+   * @param samples
+   *          the samples
+   * @param path
+   *          the path
+   * @return the map
+   */
+  public static IterMap<String, Set<Sample>> sortBy(final Collection<Sample> samples, Path path) {
+    IterMap<String, Set<Sample>> map = DefaultTreeMap.create(new TreeSetCreator<Sample>());
 
-		for (Sample sample : samples) {
-			map.get(sample.getTag(path).getValue()).add(sample);
-		}
+    for (Sample sample : samples) {
+      map.get(sample.getTag(path).getValue()).add(sample);
+    }
 
-		return map;
-	}
+    return map;
+  }
 
-	/**
-	 * Returns true if the sample is a member of the locked group.
-	 * 
-	 * @return
-	 */
-	public boolean getLocked() {
-		if (!mLocked) {
-			for (Group g : mGroups) {
-				if (g.getName().equals("Locked")) {
-					mLocked = true;
-					break;
-				}
-			}
-		}
+  /**
+   * Returns true if the sample is a member of the locked group.
+   * 
+   * @return
+   */
+  public boolean getLocked() {
+    if (!mLocked) {
+      for (Group g : mGroups) {
+        if (g.getName().equals("Locked")) {
+          mLocked = true;
+          break;
+        }
+      }
+    }
 
-		return mLocked;
-	}
-
-
+    return mLocked;
+  }
 
 }

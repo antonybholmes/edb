@@ -34,13 +34,14 @@ import org.jebtk.core.NameObject;
  */
 public class View extends NameObject {
 
-	/**
-	 * Instantiates a new view.
-	 *
-	 * @param name the name
-	 */
-	public View(String name) {
-		super(name);
-	}
+  /**
+   * Instantiates a new view.
+   *
+   * @param name
+   *          the name
+   */
+  public View(String name) {
+    super(name);
+  }
 
 }

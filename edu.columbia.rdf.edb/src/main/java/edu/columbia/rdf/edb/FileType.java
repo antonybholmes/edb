@@ -31,24 +31,25 @@ package edu.columbia.rdf.edb;
  * The Enum FileType.
  */
 public enum FileType {
-	
-	/** The dir. */
-	DIR,
-	
-	/** The file. */
-	FILE;
 
-	/**
-	 * Parses the.
-	 *
-	 * @param type the type
-	 * @return the file type
-	 */
-	public static FileType parse(int type) {
-		if (type == 1) {
-			return DIR;
-		} else {
-			return FILE;
-		}
-	}
+  /** The dir. */
+  DIR,
+
+  /** The file. */
+  FILE;
+
+  /**
+   * Parses the.
+   *
+   * @param type
+   *          the type
+   * @return the file type
+   */
+  public static FileType parse(int type) {
+    if (type == 1) {
+      return DIR;
+    } else {
+      return FILE;
+    }
+  }
 }

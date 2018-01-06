@@ -34,56 +34,60 @@ import org.jebtk.bioinformatics.annotation.Entity;
  */
 public class GEO extends Entity {
 
-	/** The m geo series acc. */
-	private String mGeoSeriesAcc;
-	
-	/** The m geo acc. */
-	private String mGeoAcc;
-	
-	/** The m geo plat. */
-	private String mGeoPlat;
+  /** The m geo series acc. */
+  private String mGeoSeriesAcc;
 
-	/**
-	 * Instantiates a new geo.
-	 *
-	 * @param id the id
-	 * @param geoSeriesAcc the geo series acc
-	 * @param geoAcc the geo acc
-	 * @param geoPlat the geo plat
-	 */
-	public GEO(int id, String geoSeriesAcc, String geoAcc, String geoPlat) {
-		super(id);
-		
-		mGeoSeriesAcc = geoSeriesAcc;
-		mGeoAcc = geoAcc;
-		mGeoPlat = geoPlat;
-	}
+  /** The m geo acc. */
+  private String mGeoAcc;
 
-	/**
-	 * Gets the GEO series accession.
-	 *
-	 * @return the GEO series accession
-	 */
-	public String getGEOSeriesAccession() {
-		return mGeoSeriesAcc;
-	}
+  /** The m geo plat. */
+  private String mGeoPlat;
 
-	/**
-	 * Gets the GEO accession.
-	 *
-	 * @return the GEO accession
-	 */
-	public String getGEOAccession() {
-		return mGeoAcc;
-	}
+  /**
+   * Instantiates a new geo.
+   *
+   * @param id
+   *          the id
+   * @param geoSeriesAcc
+   *          the geo series acc
+   * @param geoAcc
+   *          the geo acc
+   * @param geoPlat
+   *          the geo plat
+   */
+  public GEO(int id, String geoSeriesAcc, String geoAcc, String geoPlat) {
+    super(id);
 
-	/**
-	 * Gets the GEO platform.
-	 *
-	 * @return the GEO platform
-	 */
-	public String getGEOPlatform() {
-		return mGeoPlat;
-	}
+    mGeoSeriesAcc = geoSeriesAcc;
+    mGeoAcc = geoAcc;
+    mGeoPlat = geoPlat;
+  }
+
+  /**
+   * Gets the GEO series accession.
+   *
+   * @return the GEO series accession
+   */
+  public String getGEOSeriesAccession() {
+    return mGeoSeriesAcc;
+  }
+
+  /**
+   * Gets the GEO accession.
+   *
+   * @return the GEO accession
+   */
+  public String getGEOAccession() {
+    return mGeoAcc;
+  }
+
+  /**
+   * Gets the GEO platform.
+   *
+   * @return the GEO platform
+   */
+  public String getGEOPlatform() {
+    return mGeoPlat;
+  }
 
 }

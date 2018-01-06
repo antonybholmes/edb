@@ -41,81 +41,88 @@ import org.jebtk.database.JDBCConnection;
  */
 public class Species extends org.jebtk.bioinformatics.annotation.Species {
 
-	/** The Constant SQL. */
-	private static final String SQL = 
-			"SELECT organisms.id, organisms.name, organisms.scientific_name FROM organisms ORDER BY organisms.name";
+  /** The Constant SQL. */
+  private static final String SQL = "SELECT organisms.id, organisms.name, organisms.scientific_name FROM organisms ORDER BY organisms.name";
 
-	/**
-	 * Instantiates a new organism.
-	 *
-	 * @param name the name
-	 * @param scientificName the scientific name
-	 */
-	public Species(String name, String scientificName) {
-		this(-1, name, scientificName);
-	}
-	
-	/**
-	 * Instantiates a new organism.
-	 *
-	 * @param name the name
-	 */
-	public Species(String name) {
-		this(-1, name);
-	}
-	
-	/**
-	 * Instantiates a new organism.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 */
-	public Species(int id, String name) {
-		this(id, name, name);
-	}
-	
-	/**
-	 * Instantiates a new organism.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param scientificName the scientific name
-	 */
-	public Species(int id, String name, String scientificName) {
-		super(id, name, scientificName);
-	}
-	
-	public String getScientificName() {
-		return super.getScientificName();
-	}
-	
-	/**
-	 * Gets the organisms.
-	 *
-	 * @param connection the connection
-	 * @return the organisms
-	 * @throws SQLException the SQL exception
-	 */
-	public static Map<Integer, Species> getSpecies(Connection connection) throws SQLException {
-		Map<Integer, Species> ret = new HashMap<Integer, Species>();
-		
-		PreparedStatement statement = connection.prepareStatement(SQL);
-		
-		try {
-			DatabaseResultsTable table = JDBCConnection.getTable(statement);
+  /**
+   * Instantiates a new organism.
+   *
+   * @param name
+   *          the name
+   * @param scientificName
+   *          the scientific name
+   */
+  public Species(String name, String scientificName) {
+    this(-1, name, scientificName);
+  }
 
-			for (int i = 0; i < table.getRowCount(); ++i) {
-				Species o = new Species(table.getInt(i, 0),
-						table.getString(i, 1),
-						table.getString(i, 2));
-				
-				ret.put(o.getId(), o);
-			}
-		} finally {
-			statement.close();
-		}
-		
-		return ret;
-	}
+  /**
+   * Instantiates a new organism.
+   *
+   * @param name
+   *          the name
+   */
+  public Species(String name) {
+    this(-1, name);
+  }
+
+  /**
+   * Instantiates a new organism.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   */
+  public Species(int id, String name) {
+    this(id, name, name);
+  }
+
+  /**
+   * Instantiates a new organism.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   * @param scientificName
+   *          the scientific name
+   */
+  public Species(int id, String name, String scientificName) {
+    super(id, name, scientificName);
+  }
+
+  public String getScientificName() {
+    return super.getScientificName();
+  }
+
+  /**
+   * Gets the organisms.
+   *
+   * @param connection
+   *          the connection
+   * @return the organisms
+   * @throws SQLException
+   *           the SQL exception
+   */
+  public static Map<Integer, Species> getSpecies(Connection connection) throws SQLException {
+    Map<Integer, Species> ret = new HashMap<Integer, Species>();
+
+    PreparedStatement statement = connection.prepareStatement(SQL);
+
+    try {
+      DatabaseResultsTable table = JDBCConnection.getTable(statement);
+
+      for (int i = 0; i < table.getRowCount(); ++i) {
+        Species o = new Species(table.getInt(i, 0), table.getString(i, 1), table.getString(i, 2));
+
+        ret.put(o.getId(), o);
+      }
+    } finally {
+      statement.close();
+    }
+
+    return ret;
+  }
 
 }

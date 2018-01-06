@@ -41,74 +41,73 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class Group extends Type {
 
-	private static final Color DEFAULT_COLOR = Color.BLACK;
-	
-	private Color mColor;
+  private static final Color DEFAULT_COLOR = Color.BLACK;
 
-	/**
-	 * Instantiates a new person.
-	 *
-	 * @param id the id
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 */
-	public Group(int id, String name) {
-		this(id, name, DEFAULT_COLOR);
-	}
-	
-	public Group(int id, String name, Color color) {
-		super(id, name);
-		
-		mColor = color;
-	}
-	
-	public Color getColor() {
-		return mColor;
-	}
+  private Color mColor;
 
-	/**
-	 * Create a comma separated string of group names.
-	 * 
-	 * @param groups
-	 * @return
-	 */
-	public static String formatNames(Collection<Group> groups) {
-		return Stream.of(groups).map(new Function<Group, String>() {
+  /**
+   * Instantiates a new person.
+   *
+   * @param id
+   *          the id
+   * @param firstName
+   *          the first name
+   * @param lastName
+   *          the last name
+   */
+  public Group(int id, String name) {
+    this(id, name, DEFAULT_COLOR);
+  }
 
-			@Override
-			public String apply(Group g) {
-				return g.getName();
-			}})
-			.join(", ");
-	}
+  public Group(int id, String name, Color color) {
+    super(id, name);
 
-	/**
-	 * Return a list of unique colors ordered by the given group collection.
-	 * 
-	 * @param groups
-	 * @return
-	 */
-	public static List<Color> formatColors(Collection<Group> groups) {
-		
-		List<Color> ret = new UniqueArrayList<Color>(groups.size());
-		
-		/*
-		Map<String, Color> map = new HashMap<String, Color>();
-		
-		
-		for (Group group : groups) {
-			map.put(group.getName(), group.getColor());
-		}
+    mColor = color;
+  }
 
-		for (String name : CollectionUtils.sortKeys(map)) {
-			ret.add(map.get(name));
-		}
-		*/
-		
-		for (Group group : groups) {
-			ret.add(group.getColor());
-		}
-		
-		return ret;
-	}
+  public Color getColor() {
+    return mColor;
+  }
+
+  /**
+   * Create a comma separated string of group names.
+   * 
+   * @param groups
+   * @return
+   */
+  public static String formatNames(Collection<Group> groups) {
+    return Stream.of(groups).map(new Function<Group, String>() {
+
+      @Override
+      public String apply(Group g) {
+        return g.getName();
+      }
+    }).join(", ");
+  }
+
+  /**
+   * Return a list of unique colors ordered by the given group collection.
+   * 
+   * @param groups
+   * @return
+   */
+  public static List<Color> formatColors(Collection<Group> groups) {
+
+    List<Color> ret = new UniqueArrayList<Color>(groups.size());
+
+    /*
+     * Map<String, Color> map = new HashMap<String, Color>();
+     * 
+     * 
+     * for (Group group : groups) { map.put(group.getName(), group.getColor()); }
+     * 
+     * for (String name : CollectionUtils.sortKeys(map)) { ret.add(map.get(name)); }
+     */
+
+    for (Group group : groups) {
+      ret.add(group.getColor());
+    }
+
+    return ret;
+  }
 }

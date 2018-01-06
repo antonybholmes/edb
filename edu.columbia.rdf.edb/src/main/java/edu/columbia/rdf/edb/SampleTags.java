@@ -33,67 +33,66 @@ import java.util.Map;
 
 import org.jebtk.core.path.Path;
 
-
 /**
  * The Class SampleTags.
  */
 public class SampleTags implements Iterable<SampleTag> {
-	
-	/** The m map. */
-	protected Map<Path, SampleTag> mMap = new HashMap<Path, SampleTag>();
-	
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	public Iterator<SampleTag> iterator() {
-		return mMap.values().iterator();
-	}
+  /** The m map. */
+  protected Map<Path, SampleTag> mMap = new HashMap<Path, SampleTag>();
 
-	/**
-	 * Gets the tag.
-	 *
-	 * @param path the path
-	 * @return the tag
-	 */
-	public SampleTag getTag(String path) {
-		return getTag(Path.create(path));
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  public Iterator<SampleTag> iterator() {
+    return mMap.values().iterator();
+  }
 
-	/**
-	 * Maps a field to a specific tag object.
-	 * 
-	 * @param field
-	 * @return
-	 */
-	public SampleTag getTag(DataViewField field) {
-		return getTag(field.getPath());
-	}
+  /**
+   * Gets the tag.
+   *
+   * @param path
+   *          the path
+   * @return the tag
+   */
+  public SampleTag getTag(String path) {
+    return getTag(Path.create(path));
+  }
 
-	/**
-	 * Gets the tag.
-	 *
-	 * @param path the path
-	 * @return the tag
-	 */
-	public SampleTag getTag(Path path) {
-		return mMap.get(path);
-	}
+  /**
+   * Maps a field to a specific tag object.
+   * 
+   * @param field
+   * @return
+   */
+  public SampleTag getTag(DataViewField field) {
+    return getTag(field.getPath());
+  }
 
+  /**
+   * Gets the tag.
+   *
+   * @param path
+   *          the path
+   * @return the tag
+   */
+  public SampleTag getTag(Path path) {
+    return mMap.get(path);
+  }
 
-	/**
-	 * Adds the.
-	 *
-	 * @param tag the tag
-	 */
-	public void add(SampleTag tag) {
-		mMap.put(tag.getTag().getPath(), tag);
-	}
+  /**
+   * Adds the.
+   *
+   * @param tag
+   *          the tag
+   */
+  public void add(SampleTag tag) {
+    mMap.put(tag.getTag().getPath(), tag);
+  }
 
-
-
-
-	public int size() {
-		return mMap.size();
-	}
+  public int size() {
+    return mMap.size();
+  }
 }

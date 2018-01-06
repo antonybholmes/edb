@@ -38,55 +38,58 @@ import org.jebtk.core.path.Path;
  */
 public class DataViewSection extends View implements Iterable<DataViewField> {
 
-	/** The m fields. */
-	private List<DataViewField> mFields =
-			new ArrayList<DataViewField>();
-	
-	/**
-	 * Instantiates a new data view section.
-	 *
-	 * @param name the name
-	 */
-	public DataViewSection(String name) {
-		super(name);
-	}
+  /** The m fields. */
+  private List<DataViewField> mFields = new ArrayList<DataViewField>();
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<DataViewField> iterator() {
-		return mFields.iterator();
-	}
+  /**
+   * Instantiates a new data view section.
+   *
+   * @param name
+   *          the name
+   */
+  public DataViewSection(String name) {
+    super(name);
+  }
 
-	/**
-	 * Size.
-	 *
-	 * @return the int
-	 */
-	public int size() {
-		return mFields.size();
-	}
-	
-	/**
-	 * Adds the field.
-	 *
-	 * @param path the path
-	 * @param name the name
-	 */
-	public void addField(Path path, String name) {
-		addField(new DataViewField(path, name));
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<DataViewField> iterator() {
+    return mFields.iterator();
+  }
 
-	/**
-	 * Adds the field.
-	 *
-	 * @param dataViewField the data view field
-	 */
-	public void addField(DataViewField dataViewField) {
-		mFields.add(dataViewField);
-	}
+  /**
+   * Size.
+   *
+   * @return the int
+   */
+  public int size() {
+    return mFields.size();
+  }
 
-	
+  /**
+   * Adds the field.
+   *
+   * @param path
+   *          the path
+   * @param name
+   *          the name
+   */
+  public void addField(Path path, String name) {
+    addField(new DataViewField(path, name));
+  }
+
+  /**
+   * Adds the field.
+   *
+   * @param dataViewField
+   *          the data view field
+   */
+  public void addField(DataViewField dataViewField) {
+    mFields.add(dataViewField);
+  }
 
 }

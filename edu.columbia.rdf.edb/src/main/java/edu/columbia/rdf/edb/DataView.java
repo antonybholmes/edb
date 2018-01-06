@@ -36,33 +36,37 @@ import java.util.List;
  */
 public class DataView extends View implements Iterable<DataViewSection> {
 
-	/** The m sections. */
-	private List<DataViewSection> mSections = new ArrayList<DataViewSection>();
-	
-	/**
-	 * Instantiates a new data view.
-	 *
-	 * @param name the name
-	 */
-	public DataView(String name) {
-		super(name);
-	}
+  /** The m sections. */
+  private List<DataViewSection> mSections = new ArrayList<DataViewSection>();
 
-	/**
-	 * Adds the section.
-	 *
-	 * @param section the section
-	 */
-	public void addSection(DataViewSection section) {
-		mSections.add(section);
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<DataViewSection> iterator() {
-		return mSections.iterator();
-	}
+  /**
+   * Instantiates a new data view.
+   *
+   * @param name
+   *          the name
+   */
+  public DataView(String name) {
+    super(name);
+  }
+
+  /**
+   * Adds the section.
+   *
+   * @param section
+   *          the section
+   */
+  public void addSection(DataViewSection section) {
+    mSections.add(section);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<DataViewSection> iterator() {
+    return mSections.iterator();
+  }
 
 }

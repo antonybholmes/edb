@@ -34,29 +34,33 @@ import java.util.Date;
  */
 public class Descriptive extends Dated {
 
-	/** The m description. */
-	private String mDescription;
+  /** The m description. */
+  private String mDescription;
 
-	/**
-	 * Instantiates a new descriptive.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param description the description
-	 * @param date the date
-	 */
-	public Descriptive(int id, String name, String description, Date date) {
-		super(id, name, date);
-		
-		mDescription = description;
-	}
-	
-	/**
-	 * Gets the description.
-	 *
-	 * @return the description
-	 */
-	public String getDescription() {
-		return mDescription;
-	}
+  /**
+   * Instantiates a new descriptive.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   * @param description
+   *          the description
+   * @param date
+   *          the date
+   */
+  public Descriptive(int id, String name, String description, Date date) {
+    super(id, name, date);
+
+    mDescription = description;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return mDescription;
+  }
 }

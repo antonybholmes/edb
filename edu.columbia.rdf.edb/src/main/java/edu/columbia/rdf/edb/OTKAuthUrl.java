@@ -34,104 +34,103 @@ import org.jebtk.core.cryptography.TOTP;
 import org.jebtk.core.network.UrlBuilder;
 
 /**
- * Generates base authentication URLs. Attempts to only create new URLs
- * if the current one becomes invalid to reduce the need to run SHA-256
- * repeatedly.
+ * Generates base authentication URLs. Attempts to only create new URLs if the
+ * current one becomes invalid to reduce the need to run SHA-256 repeatedly.
  * 
  * @author Antony Holmes Holmes
  */
 public class OTKAuthUrl {
 
-	/** The m salt. */
-	long mCounter = -1;
+  /** The m salt. */
+  long mCounter = -1;
 
-	/** The m user. */
-	private String mUser;
+  /** The m user. */
+  private String mUser;
 
-	/** The m key. */
-	private String mKey;
+  /** The m key. */
+  private String mKey;
 
-	/** The m step. */
-	private long mStep;
+  /** The m step. */
+  private long mStep;
 
-	/** The m rest auth url. */
-	private UrlBuilder mRestAuthUrl;
+  /** The m rest auth url. */
+  private UrlBuilder mRestAuthUrl;
 
-	/** The m url. */
-	private UrlBuilder mUrl;
+  /** The m url. */
+  private UrlBuilder mUrl;
 
-	/** The m epoch. */
-	private long mEpoch;
+  /** The m epoch. */
+  private long mEpoch;
 
-	/**
-	 * Instantiates a new totp auth url.
-	 *
-	 * @param url the url
-	 * @param user the user
-	 * @param key the key
-	 * @param epoch the epoch
-	 * @param step the step
-	 */
-	public OTKAuthUrl(UrlBuilder url, 
-			String user, 
-			String key,
-			long epoch,
-			long step) {
-		mUrl = url;
-		mUser = user;
-		mKey = key;
-		mEpoch = epoch;
-		mStep = step;
-	}
+  /**
+   * Instantiates a new totp auth url.
+   *
+   * @param url
+   *          the url
+   * @param user
+   *          the user
+   * @param key
+   *          the key
+   * @param epoch
+   *          the epoch
+   * @param step
+   *          the step
+   */
+  public OTKAuthUrl(UrlBuilder url, String user, String key, long epoch, long step) {
+    mUrl = url;
+    mUser = user;
+    mKey = key;
+    mEpoch = epoch;
+    mStep = step;
+  }
 
-	/**
-	 * Gets the totp auth url.
-	 *
-	 * @return the totp auth url
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 */
-	public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
-		long time = TimeUtils.getCurrentTimeMs();
+  /**
+   * Gets the totp auth url.
+   *
+   * @return the totp auth url
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
+  public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
+    long time = TimeUtils.getCurrentTimeMs();
 
-		long counter = TOTP.getCounter(time, mEpoch, mStep);
+    long counter = TOTP.getCounter(time, mEpoch, mStep);
 
-		if (counter != mCounter) {
-			// Only update the auth url object when we change counter bins
-			// since it will not change during the bin duration.
-			
-			//Generate an 6 digit totp code
-			int totp = TOTP.generateCTOTP6(mKey, counter); //toptCounter256(mKey, counter);
-			
-			// Format the totp to ensure 8 digits
-			String formattedTotp = String.format("%06d", totp);
-			
-			mRestAuthUrl = mUrl
-					.param("u", mUser)
-					.param("totp", formattedTotp);
-					//.resolve(mUser)
-					//.resolve(formattedTotp);
+    if (counter != mCounter) {
+      // Only update the auth url object when we change counter bins
+      // since it will not change during the bin duration.
 
-			mCounter = counter;
-		}
+      // Generate an 6 digit totp code
+      int totp = TOTP.generateCTOTP6(mKey, counter); // toptCounter256(mKey, counter);
 
-		return mRestAuthUrl;
-	}
+      // Format the totp to ensure 8 digits
+      String formattedTotp = String.format("%06d", totp);
 
-	/**
-	 * Gets the epoch.
-	 *
-	 * @return the epoch
-	 */
-	public long getEpoch() {
-		return mEpoch;
-	}
+      mRestAuthUrl = mUrl.param("u", mUser).param("totp", formattedTotp);
+      // .resolve(mUser)
+      // .resolve(formattedTotp);
 
-	/**
-	 * Gets the step.
-	 *
-	 * @return the step
-	 */
-	public long getStep() {
-		return mStep;
-	}
+      mCounter = counter;
+    }
+
+    return mRestAuthUrl;
+  }
+
+  /**
+   * Gets the epoch.
+   *
+   * @return the epoch
+   */
+  public long getEpoch() {
+    return mEpoch;
+  }
+
+  /**
+   * Gets the step.
+   *
+   * @return the step
+   */
+  public long getStep() {
+    return mStep;
+  }
 }

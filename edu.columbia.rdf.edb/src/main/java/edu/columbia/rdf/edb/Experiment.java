@@ -40,51 +40,52 @@ import org.jebtk.core.collections.TreeSetCreator;
  */
 public class Experiment extends Descriptive {
 
-	/** The m public id. */
-	private String mPublicId;
+  /** The m public id. */
+  private String mPublicId;
 
-	/**
-	 * Instantiates a new experiment.
-	 *
-	 * @param id the id
-	 * @param publicId the public id
-	 * @param name the name
-	 * @param description the description
-	 * @param created the created
-	 */
-	public Experiment(int id, 
-			String publicId, 
-			String name, 
-			String description,
-			Date created) {
-		super(id, name, description, created);
-		
-		mPublicId = publicId;
-	}
+  /**
+   * Instantiates a new experiment.
+   *
+   * @param id
+   *          the id
+   * @param publicId
+   *          the public id
+   * @param name
+   *          the name
+   * @param description
+   *          the description
+   * @param created
+   *          the created
+   */
+  public Experiment(int id, String publicId, String name, String description, Date created) {
+    super(id, name, description, created);
 
-	/**
-	 * Gets the public id.
-	 *
-	 * @return the public id
-	 */
-	public String getPublicId() {
-		return mPublicId;
-	}
+    mPublicId = publicId;
+  }
 
-	/**
-	 * Sort samples by experiment.
-	 *
-	 * @param samples the samples
-	 * @return the map
-	 */
-	public static Map<Experiment, Set<Sample>> sortSamplesByExperiment(final Collection<Sample> samples) {
-		Map<Experiment, Set<Sample>> map = 
-				DefaultHashMap.create(new TreeSetCreator<Sample>());
-		
-		for (Sample sample : samples) {
-			map.get(sample.getExperiment()).add(sample);
-		}
-		
-		return map;
-	}
+  /**
+   * Gets the public id.
+   *
+   * @return the public id
+   */
+  public String getPublicId() {
+    return mPublicId;
+  }
+
+  /**
+   * Sort samples by experiment.
+   *
+   * @param samples
+   *          the samples
+   * @return the map
+   */
+  public static Map<Experiment, Set<Sample>> sortSamplesByExperiment(final Collection<Sample> samples) {
+    Map<Experiment, Set<Sample>> map = DefaultHashMap.create(new TreeSetCreator<Sample>());
+
+    for (Sample sample : samples) {
+      map.get(sample.getExperiment()).add(sample);
+    }
+
+    return map;
+  }
 }

@@ -35,27 +35,29 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class Tag extends Type {
 
-	/** The m path. */
-	private Path mPath;
+  /** The m path. */
+  private Path mPath;
 
-	/**
-	 * Instantiates a new tag.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 */
-	public Tag(int id, String name) {
-		super(id, name);
-		
-		mPath = Path.create(name);
-	}
+  /**
+   * Instantiates a new tag.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   */
+  public Tag(int id, String name) {
+    super(id, name);
 
-	/**
-	 * Gets the path.
-	 *
-	 * @return the path
-	 */
-	public Path getPath() {
-		return mPath;
-	}
+    mPath = Path.create(name);
+  }
+
+  /**
+   * Gets the path.
+   *
+   * @return the path
+   */
+  public Path getPath() {
+    return mPath;
+  }
 }

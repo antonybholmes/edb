@@ -36,29 +36,32 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public abstract class Dated extends Type {
 
-	/** The m date. */
-	private Date mDate;
+  /** The m date. */
+  private Date mDate;
 
-	/**
-	 * Instantiates a new dated.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param date the date
-	 */
-	public Dated(int id, String name, Date date) {
-		super(id, name);
-		
-		mDate = date;
-	}
-	
-	/**
-	 * Gets the date.
-	 *
-	 * @return the date
-	 */
-	public Date getDate() {
-		return mDate;
-	}
+  /**
+   * Instantiates a new dated.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   * @param date
+   *          the date
+   */
+  public Dated(int id, String name, Date date) {
+    super(id, name);
+
+    mDate = date;
+  }
+
+  /**
+   * Gets the date.
+   *
+   * @return the date
+   */
+  public Date getDate() {
+    return mDate;
+  }
 
 }

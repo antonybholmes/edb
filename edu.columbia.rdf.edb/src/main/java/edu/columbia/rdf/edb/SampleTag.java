@@ -34,39 +34,41 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class SampleTag extends Type {
 
-	/** The m tag. */
-	private Tag mTag;
+  /** The m tag. */
+  private Tag mTag;
 
-	/**
-	 * Instantiates a new sample tag.
-	 *
-	 * @param id the id
-	 * @param tag the tag
-	 * @param name the name
-	 */
-	public SampleTag(int id, Tag tag, String name) {
-		super(id, name);
-		
-		mTag = tag;
-	}
-	
-	/**
-	 * Gets the tag.
-	 *
-	 * @return the tag
-	 */
-	public Tag getTag() {
-		return mTag;
-	}
+  /**
+   * Instantiates a new sample tag.
+   *
+   * @param id
+   *          the id
+   * @param tag
+   *          the tag
+   * @param name
+   *          the name
+   */
+  public SampleTag(int id, Tag tag, String name) {
+    super(id, name);
 
-	/**
-	 * Gets the value.
-	 *
-	 * @return the value
-	 */
-	public String getValue() {
-		return getName();
-	}
+    mTag = tag;
+  }
 
-	
+  /**
+   * Gets the tag.
+   *
+   * @return the tag
+   */
+  public Tag getTag() {
+    return mTag;
+  }
+
+  /**
+   * Gets the value.
+   *
+   * @return the value
+   */
+  public String getValue() {
+    return getName();
+  }
+
 }

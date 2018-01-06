@@ -35,86 +35,97 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class Person extends Type {
 
-	/** The m first name. */
-	private String mFirstName;
-	
-	/** The m last name. */
-	private String mLastName;
-	
-	/** The m email. */
-	private String mEmail;
+  /** The m first name. */
+  private String mFirstName;
 
-	/**
-	 * Instantiates a new person.
-	 *
-	 * @param id the id
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 */
-	public Person(int id, String firstName, String lastName) {
-		this(id, firstName, lastName, TextUtils.EMPTY_STRING);
-	}
-	
-	/**
-	 * Instantiates a new person.
-	 *
-	 * @param id the id
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param email the email
-	 */
-	public Person(int id, String firstName, String lastName, String email) {
-		super(id, firstName + " " + lastName);
-		
-		mFirstName = firstName;
-		mLastName = lastName;
-		mEmail = email;
-	}
-	
-	/**
-	 * Gets the first name.
-	 *
-	 * @return the first name
-	 */
-	public String getFirstName() {
-		return mFirstName;
-	}
-	
-	/**
-	 * Gets the lat name.
-	 *
-	 * @return the lat name
-	 */
-	public String getLatName() {
-		return mLastName;
-	}
-	
-	/**
-	 * Gets the email.
-	 *
-	 * @return the email
-	 */
-	public String getEmail() {
-		return mEmail;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jebtk.bioinformatics.annotation.Type#compareTo(org.jebtk.bioinformatics.annotation.Type)
-	 */
-	@Override
-	public int compareTo(Type t) {
-		if (t instanceof Person) {
-			Person p = (Person)t;
-			
-			int c = mLastName.compareTo(p.mLastName);
-			
-			if (c == 0) {
-				c = mFirstName.compareTo(p.mFirstName);
-			}
-			
-			return c;
-		} else {
-			return super.compareTo(t);
-		}
-	}
+  /** The m last name. */
+  private String mLastName;
+
+  /** The m email. */
+  private String mEmail;
+
+  /**
+   * Instantiates a new person.
+   *
+   * @param id
+   *          the id
+   * @param firstName
+   *          the first name
+   * @param lastName
+   *          the last name
+   */
+  public Person(int id, String firstName, String lastName) {
+    this(id, firstName, lastName, TextUtils.EMPTY_STRING);
+  }
+
+  /**
+   * Instantiates a new person.
+   *
+   * @param id
+   *          the id
+   * @param firstName
+   *          the first name
+   * @param lastName
+   *          the last name
+   * @param email
+   *          the email
+   */
+  public Person(int id, String firstName, String lastName, String email) {
+    super(id, firstName + " " + lastName);
+
+    mFirstName = firstName;
+    mLastName = lastName;
+    mEmail = email;
+  }
+
+  /**
+   * Gets the first name.
+   *
+   * @return the first name
+   */
+  public String getFirstName() {
+    return mFirstName;
+  }
+
+  /**
+   * Gets the lat name.
+   *
+   * @return the lat name
+   */
+  public String getLatName() {
+    return mLastName;
+  }
+
+  /**
+   * Gets the email.
+   *
+   * @return the email
+   */
+  public String getEmail() {
+    return mEmail;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.jebtk.bioinformatics.annotation.Type#compareTo(org.jebtk.bioinformatics.
+   * annotation.Type)
+   */
+  @Override
+  public int compareTo(Type t) {
+    if (t instanceof Person) {
+      Person p = (Person) t;
+
+      int c = mLastName.compareTo(p.mLastName);
+
+      if (c == 0) {
+        c = mFirstName.compareTo(p.mFirstName);
+      }
+
+      return c;
+    } else {
+      return super.compareTo(t);
+    }
+  }
 }

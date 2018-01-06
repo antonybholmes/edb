@@ -32,46 +32,50 @@ import java.util.Date;
 import org.jebtk.core.io.Io;
 
 /**
- * A file descriptor represents a file available on the EDB. It does not
- * map to a file on a the local file system, but rather is a reference to
- * a file available through the database. Furthermore the file referenced
- * is by a VFS file id which can be used to determine the 
+ * A file descriptor represents a file available on the EDB. It does not map to
+ * a file on a the local file system, but rather is a reference to a file
+ * available through the database. Furthermore the file referenced is by a VFS
+ * file id which can be used to determine the
  */
 public class FileDescriptor extends Dated {
 
-	/** The m type. */
-	private FileType mType;
+  /** The m type. */
+  private FileType mType;
 
-	/**
-	 * Instantiates a new file descriptor.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param type the type
-	 * @param date the date
-	 */
-	public FileDescriptor(int id, String name, FileType type, Date date) {
-		super(id, name, date);
-		
-		mType = type;
-	}
-	
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	public FileType getType() {
-		return mType;
-	}
+  /**
+   * Instantiates a new file descriptor.
+   *
+   * @param id
+   *          the id
+   * @param name
+   *          the name
+   * @param type
+   *          the type
+   * @param date
+   *          the date
+   */
+  public FileDescriptor(int id, String name, FileType type, Date date) {
+    super(id, name, date);
 
-	/**
-	 * Gets the ext.
-	 *
-	 * @return the ext
-	 */
-	public String getExt() {
-		return Io.getFileExt(mName);
-	}
+    mType = type;
+  }
+
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
+  public FileType getType() {
+    return mType;
+  }
+
+  /**
+   * Gets the ext.
+   *
+   * @return the ext
+   */
+  public String getExt() {
+    return Io.getFileExt(mName);
+  }
 
 }

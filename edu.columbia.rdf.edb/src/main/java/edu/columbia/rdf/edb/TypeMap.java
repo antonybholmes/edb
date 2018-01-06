@@ -36,7 +36,7 @@ import org.jebtk.bioinformatics.annotation.Type;
  */
 public class TypeMap extends HashMap<Integer, Type> {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
 }
