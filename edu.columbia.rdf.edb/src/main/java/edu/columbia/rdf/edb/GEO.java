@@ -46,14 +46,10 @@ public class GEO extends Entity {
   /**
    * Instantiates a new geo.
    *
-   * @param id
-   *          the id
-   * @param geoSeriesAcc
-   *          the geo series acc
-   * @param geoAcc
-   *          the geo acc
-   * @param geoPlat
-   *          the geo plat
+   * @param id the id
+   * @param geoSeriesAcc the geo series acc
+   * @param geoAcc the geo acc
+   * @param geoPlat the geo plat
    */
   public GEO(int id, String geoSeriesAcc, String geoAcc, String geoPlat) {
     super(id);

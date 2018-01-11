@@ -42,8 +42,7 @@ public class DataView extends View implements Iterable<DataViewSection> {
   /**
    * Instantiates a new data view.
    *
-   * @param name
-   *          the name
+   * @param name the name
    */
   public DataView(String name) {
     super(name);
@@ -52,8 +51,7 @@ public class DataView extends View implements Iterable<DataViewSection> {
   /**
    * Adds the section.
    *
-   * @param section
-   *          the section
+   * @param section the section
    */
   public void addSection(DataViewSection section) {
     mSections.add(section);

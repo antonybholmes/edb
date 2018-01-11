@@ -41,8 +41,7 @@ public enum FileType {
   /**
    * Parses the.
    *
-   * @param type
-   *          the type
+   * @param type the type
    * @return the file type
    */
   public static FileType parse(int type) {

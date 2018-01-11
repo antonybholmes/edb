@@ -45,14 +45,10 @@ public class FileDescriptor extends Dated {
   /**
    * Instantiates a new file descriptor.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
-   * @param type
-   *          the type
-   * @param date
-   *          the date
+   * @param id the id
+   * @param name the name
+   * @param type the type
+   * @param date the date
    */
   public FileDescriptor(int id, String name, FileType type, Date date) {
     super(id, name, date);

@@ -47,10 +47,8 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
   /**
    * Instantiates a new organism.
    *
-   * @param name
-   *          the name
-   * @param scientificName
-   *          the scientific name
+   * @param name the name
+   * @param scientificName the scientific name
    */
   public Species(String name, String scientificName) {
     this(-1, name, scientificName);
@@ -59,8 +57,7 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
   /**
    * Instantiates a new organism.
    *
-   * @param name
-   *          the name
+   * @param name the name
    */
   public Species(String name) {
     this(-1, name);
@@ -69,10 +66,8 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
   /**
    * Instantiates a new organism.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
+   * @param id the id
+   * @param name the name
    */
   public Species(int id, String name) {
     this(id, name, name);
@@ -81,12 +76,9 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
   /**
    * Instantiates a new organism.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
-   * @param scientificName
-   *          the scientific name
+   * @param id the id
+   * @param name the name
+   * @param scientificName the scientific name
    */
   public Species(int id, String name, String scientificName) {
     super(id, name, scientificName);
@@ -99,13 +91,12 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
   /**
    * Gets the organisms.
    *
-   * @param connection
-   *          the connection
+   * @param connection the connection
    * @return the organisms
-   * @throws SQLException
-   *           the SQL exception
+   * @throws SQLException the SQL exception
    */
-  public static Map<Integer, Species> getSpecies(Connection connection) throws SQLException {
+  public static Map<Integer, Species> getSpecies(Connection connection)
+      throws SQLException {
     Map<Integer, Species> ret = new HashMap<Integer, Species>();
 
     PreparedStatement statement = connection.prepareStatement(SQL);
@@ -114,7 +105,8 @@ public class Species extends org.jebtk.bioinformatics.annotation.Species {
       DatabaseResultsTable table = JDBCConnection.getTable(statement);
 
       for (int i = 0; i < table.getRowCount(); ++i) {
-        Species o = new Species(table.getInt(i, 0), table.getString(i, 1), table.getString(i, 2));
+        Species o = new Species(table.getInt(i, 0), table.getString(i, 1),
+            table.getString(i, 2));
 
         ret.put(o.getId(), o);
       }

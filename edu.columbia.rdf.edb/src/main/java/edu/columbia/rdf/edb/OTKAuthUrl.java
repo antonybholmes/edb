@@ -65,18 +65,14 @@ public class OTKAuthUrl {
   /**
    * Instantiates a new totp auth url.
    *
-   * @param url
-   *          the url
-   * @param user
-   *          the user
-   * @param key
-   *          the key
-   * @param epoch
-   *          the epoch
-   * @param step
-   *          the step
+   * @param url the url
+   * @param user the user
+   * @param key the key
+   * @param epoch the epoch
+   * @param step the step
    */
-  public OTKAuthUrl(UrlBuilder url, String user, String key, long epoch, long step) {
+  public OTKAuthUrl(UrlBuilder url, String user, String key, long epoch,
+      long step) {
     mUrl = url;
     mUser = user;
     mKey = key;
@@ -88,8 +84,7 @@ public class OTKAuthUrl {
    * Gets the totp auth url.
    *
    * @return the totp auth url
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
   public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
     long time = TimeUtils.getCurrentTimeMs();
@@ -101,7 +96,8 @@ public class OTKAuthUrl {
       // since it will not change during the bin duration.
 
       // Generate an 6 digit totp code
-      int totp = TOTP.generateCTOTP6(mKey, counter); // toptCounter256(mKey, counter);
+      int totp = TOTP.generateCTOTP6(mKey, counter); // toptCounter256(mKey,
+                                                     // counter);
 
       // Format the totp to ensure 8 digits
       String formattedTotp = String.format("%06d", totp);

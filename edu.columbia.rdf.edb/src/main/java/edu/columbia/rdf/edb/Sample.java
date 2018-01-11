@@ -35,25 +35,26 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.jebtk.bioinformatics.annotation.Species;
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.collections.DefaultTreeMap;
 import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.collections.TreeSetCreator;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.text.FormattedTxt;
-import org.jebtk.bioinformatics.annotation.Species;
-import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Sample.
  */
 public class Sample extends Dated implements FormattedTxt {
 
-  private static final Path ARRAY_PATH = Path
-      .create("/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform");
+  private static final Path ARRAY_PATH = Path.create(
+      "/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform");
 
   private static final Path ORGANISM_PATH = Path.create("/Sample/Organism");
 
-  private static final Path CHIPSEQ_GENOME_PATH = Path.create("/ChIP-Seq/Sample/Genome");
+  private static final Path CHIPSEQ_GENOME_PATH = Path
+      .create("/ChIP-Seq/Sample/Genome");
 
   /** The m experiment. */
   private Experiment mExperiment;
@@ -87,8 +88,7 @@ public class Sample extends Dated implements FormattedTxt {
   /**
    * Instantiates a new sample.
    *
-   * @param name
-   *          the name
+   * @param name the name
    */
   public Sample(String name) {
     this(-1, null, null, name, null, null);
@@ -97,20 +97,15 @@ public class Sample extends Dated implements FormattedTxt {
   /**
    * Create a new experiment.
    *
-   * @param id
-   *          the id
-   * @param experiment
-   *          the experiment
-   * @param expression
-   *          the expression
-   * @param name
-   *          the name
-   * @param organism
-   *          the organism
-   * @param date
-   *          the date
+   * @param id the id
+   * @param experiment the experiment
+   * @param expression the expression
+   * @param name the name
+   * @param organism the organism
+   * @param date the date
    */
-  public Sample(int id, Experiment experiment, Type expression, String name, Species organism, Date date) {
+  public Sample(int id, Experiment experiment, Type expression, String name,
+      Species organism, Date date) {
     super(id, name, date);
 
     mExperiment = experiment;
@@ -150,8 +145,7 @@ public class Sample extends Dated implements FormattedTxt {
   /**
    * Sets the geo.
    *
-   * @param geo
-   *          the new geo
+   * @param geo the new geo
    */
   public void setGEO(GEO geo) {
     mGeo = geo;
@@ -217,10 +211,10 @@ public class Sample extends Dated implements FormattedTxt {
   }
 
   /**
-   * Returns a tag associated with a sample. Equivalent to getTags().getTag(path).
+   * Returns a tag associated with a sample. Equivalent to
+   * getTags().getTag(path).
    *
-   * @param path
-   *          the path
+   * @param path the path
    * @return the tag
    */
   public SampleTag getTag(Path path) {
@@ -234,40 +228,42 @@ public class Sample extends Dated implements FormattedTxt {
   /**
    * Sort by array design.
    *
-   * @param samples
-   *          the samples
+   * @param samples the samples
    * @return the map
    */
-  public static IterMap<String, Set<Sample>> sortByArrayDesign(final Collection<Sample> samples) {
+  public static IterMap<String, Set<Sample>> sortByArrayDesign(
+      final Collection<Sample> samples) {
     return sortBy(samples, ARRAY_PATH);
   }
 
-  public static IterMap<String, Set<Sample>> sortByGenome(final Collection<Sample> samples) {
+  public static IterMap<String, Set<Sample>> sortByGenome(
+      final Collection<Sample> samples) {
     return sortBy(samples, CHIPSEQ_GENOME_PATH);
   }
 
   /**
    * Sort by organism.
    *
-   * @param samples
-   *          the samples
+   * @param samples the samples
    * @return the map
    */
-  public static IterMap<String, Set<Sample>> sortByOrganism(final Collection<Sample> samples) {
+  public static IterMap<String, Set<Sample>> sortByOrganism(
+      final Collection<Sample> samples) {
     return sortBy(samples, ORGANISM_PATH);
   }
 
   /**
    * Sort by.
    *
-   * @param samples
-   *          the samples
-   * @param path
-   *          the path
+   * @param samples the samples
+   * @param path the path
    * @return the map
    */
-  public static IterMap<String, Set<Sample>> sortBy(final Collection<Sample> samples, Path path) {
-    IterMap<String, Set<Sample>> map = DefaultTreeMap.create(new TreeSetCreator<Sample>());
+  public static IterMap<String, Set<Sample>> sortBy(
+      final Collection<Sample> samples,
+      Path path) {
+    IterMap<String, Set<Sample>> map = DefaultTreeMap
+        .create(new TreeSetCreator<Sample>());
 
     for (Sample sample : samples) {
       map.get(sample.getTag(path).getValue()).add(sample);

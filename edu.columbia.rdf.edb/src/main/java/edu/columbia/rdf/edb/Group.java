@@ -31,10 +31,10 @@ import java.awt.Color;
 import java.util.Collection;
 import java.util.List;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.Function;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.core.stream.Stream;
-import org.jebtk.bioinformatics.annotation.Type;
 
 /**
  * The Class Person.
@@ -48,12 +48,9 @@ public class Group extends Type {
   /**
    * Instantiates a new person.
    *
-   * @param id
-   *          the id
-   * @param firstName
-   *          the first name
-   * @param lastName
-   *          the last name
+   * @param id the id
+   * @param firstName the first name
+   * @param lastName the last name
    */
   public Group(int id, String name) {
     this(id, name, DEFAULT_COLOR);
@@ -99,9 +96,11 @@ public class Group extends Type {
      * Map<String, Color> map = new HashMap<String, Color>();
      * 
      * 
-     * for (Group group : groups) { map.put(group.getName(), group.getColor()); }
+     * for (Group group : groups) { map.put(group.getName(), group.getColor());
+     * }
      * 
-     * for (String name : CollectionUtils.sortKeys(map)) { ret.add(map.get(name)); }
+     * for (String name : CollectionUtils.sortKeys(map)) {
+     * ret.add(map.get(name)); }
      */
 
     for (Group group : groups) {

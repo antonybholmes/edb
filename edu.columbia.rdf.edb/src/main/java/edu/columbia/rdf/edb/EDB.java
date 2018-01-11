@@ -74,17 +74,19 @@ public class EDB {
 
   private static Pattern NUMERICAL_ID_PATTERN = Pattern.compile("^\\d{0,20}$");
 
-  private static Pattern STRING_ID_PATTERN = Pattern.compile("^[A-Za-z0-9\\_\\-\\.\\%]+$");
+  private static Pattern STRING_ID_PATTERN = Pattern
+      .compile("^[A-Za-z0-9\\_\\-\\.\\%]+$");
 
-  private static Pattern GEO_ACCESSION_PATTERN = Pattern.compile("^G[A-Z]{2}\\d+$");
+  private static Pattern GEO_ACCESSION_PATTERN = Pattern
+      .compile("^G[A-Z]{2}\\d+$");
 
   private EDB() {
     // do nothing
   }
 
   /**
-   * Validates text to ensure it conforms to a textual id and contains no illegal
-   * characters.
+   * Validates text to ensure it conforms to a textual id and contains no
+   * illegal characters.
    * 
    * @param id
    * @return
@@ -149,7 +151,8 @@ public class EDB {
     return ((DataSource) EDB.lookup("jdbc/experimentdb"));
   }
 
-  public static Connection getConnection() throws SQLException, NamingException {
+  public static Connection getConnection()
+      throws SQLException, NamingException {
     return getDatabasePool().getConnection();
   }
 }

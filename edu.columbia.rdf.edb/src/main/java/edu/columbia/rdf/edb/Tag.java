@@ -27,8 +27,8 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.jebtk.core.path.Path;
 import org.jebtk.bioinformatics.annotation.Type;
+import org.jebtk.core.path.Path;
 
 /**
  * The Class Tag.
@@ -41,10 +41,8 @@ public class Tag extends Type {
   /**
    * Instantiates a new tag.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
+   * @param id the id
+   * @param name the name
    */
   public Tag(int id, String name) {
     super(id, name);

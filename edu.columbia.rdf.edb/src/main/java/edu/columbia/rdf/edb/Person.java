@@ -27,8 +27,8 @@
  */
 package edu.columbia.rdf.edb;
 
-import org.jebtk.core.text.TextUtils;
 import org.jebtk.bioinformatics.annotation.Type;
+import org.jebtk.core.text.TextUtils;
 
 /**
  * The Class Person.
@@ -47,12 +47,9 @@ public class Person extends Type {
   /**
    * Instantiates a new person.
    *
-   * @param id
-   *          the id
-   * @param firstName
-   *          the first name
-   * @param lastName
-   *          the last name
+   * @param id the id
+   * @param firstName the first name
+   * @param lastName the last name
    */
   public Person(int id, String firstName, String lastName) {
     this(id, firstName, lastName, TextUtils.EMPTY_STRING);
@@ -61,14 +58,10 @@ public class Person extends Type {
   /**
    * Instantiates a new person.
    *
-   * @param id
-   *          the id
-   * @param firstName
-   *          the first name
-   * @param lastName
-   *          the last name
-   * @param email
-   *          the email
+   * @param id the id
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param email the email
    */
   public Person(int id, String firstName, String lastName, String email) {
     super(id, firstName + " " + lastName);
@@ -108,9 +101,8 @@ public class Person extends Type {
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * org.jebtk.bioinformatics.annotation.Type#compareTo(org.jebtk.bioinformatics.
-   * annotation.Type)
+   * @see org.jebtk.bioinformatics.annotation.Type#compareTo(org.jebtk.
+   * bioinformatics. annotation.Type)
    */
   @Override
   public int compareTo(Type t) {

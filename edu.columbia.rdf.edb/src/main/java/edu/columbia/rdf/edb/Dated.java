@@ -42,12 +42,9 @@ public abstract class Dated extends Type {
   /**
    * Instantiates a new dated.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
-   * @param date
-   *          the date
+   * @param id the id
+   * @param name the name
+   * @param date the date
    */
   public Dated(int id, String name, Date date) {
     super(id, name);

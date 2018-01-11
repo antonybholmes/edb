@@ -37,8 +37,7 @@ public class View extends NameObject {
   /**
    * Instantiates a new view.
    *
-   * @param name
-   *          the name
+   * @param name the name
    */
   public View(String name) {
     super(name);

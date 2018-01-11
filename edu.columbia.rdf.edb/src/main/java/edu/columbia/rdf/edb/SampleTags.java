@@ -53,8 +53,7 @@ public class SampleTags implements Iterable<SampleTag> {
   /**
    * Gets the tag.
    *
-   * @param path
-   *          the path
+   * @param path the path
    * @return the tag
    */
   public SampleTag getTag(String path) {
@@ -74,8 +73,7 @@ public class SampleTags implements Iterable<SampleTag> {
   /**
    * Gets the tag.
    *
-   * @param path
-   *          the path
+   * @param path the path
    * @return the tag
    */
   public SampleTag getTag(Path path) {
@@ -85,8 +83,7 @@ public class SampleTags implements Iterable<SampleTag> {
   /**
    * Adds the.
    *
-   * @param tag
-   *          the tag
+   * @param tag the tag
    */
   public void add(SampleTag tag) {
     mMap.put(tag.getTag().getPath(), tag);

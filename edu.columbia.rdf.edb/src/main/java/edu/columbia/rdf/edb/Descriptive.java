@@ -40,14 +40,10 @@ public class Descriptive extends Dated {
   /**
    * Instantiates a new descriptive.
    *
-   * @param id
-   *          the id
-   * @param name
-   *          the name
-   * @param description
-   *          the description
-   * @param date
-   *          the date
+   * @param id the id
+   * @param name the name
+   * @param description the description
+   * @param date the date
    */
   public Descriptive(int id, String name, String description, Date date) {
     super(id, name, date);

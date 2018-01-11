@@ -44,8 +44,7 @@ public class DataViewSection extends View implements Iterable<DataViewField> {
   /**
    * Instantiates a new data view section.
    *
-   * @param name
-   *          the name
+   * @param name the name
    */
   public DataViewSection(String name) {
     super(name);
@@ -73,10 +72,8 @@ public class DataViewSection extends View implements Iterable<DataViewField> {
   /**
    * Adds the field.
    *
-   * @param path
-   *          the path
-   * @param name
-   *          the name
+   * @param path the path
+   * @param name the name
    */
   public void addField(Path path, String name) {
     addField(new DataViewField(path, name));
@@ -85,8 +82,7 @@ public class DataViewSection extends View implements Iterable<DataViewField> {
   /**
    * Adds the field.
    *
-   * @param dataViewField
-   *          the data view field
+   * @param dataViewField the data view field
    */
   public void addField(DataViewField dataViewField) {
     mFields.add(dataViewField);

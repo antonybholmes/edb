@@ -99,21 +99,15 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   /**
    * Instantiates a new EDBW login.
    *
-   * @param server
-   *          the server
-   * @param user
-   *          the user
-   * @param key
-   *          the key
-   * @param epoch
-   *          the epoch
-   * @param step
-   *          the step
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @param server the server
+   * @param user the user
+   * @param key the key
+   * @param epoch the epoch
+   * @param step the step
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  protected EDBWLogin(String server, String user, String fullKey, String key, long epoch, long step)
-      throws UnsupportedEncodingException {
+  protected EDBWLogin(String server, String user, String fullKey, String key,
+      long epoch, long step) throws UnsupportedEncodingException {
     mServer = server;
     mUser = user;
     mFullKey = fullKey;
@@ -160,11 +154,11 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   // }
 
   /**
-   * Returns the authentication url an embedded time changing authentication key.
+   * Returns the authentication url an embedded time changing authentication
+   * key.
    *
    * @return the totp auth url
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
   public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
     return mOTKAuthUrl.getOTKAuthUrl();
@@ -203,7 +197,8 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 
     serverElement.setAttribute("name", mServer);
     // serverElement.setAttribute("port", Integer.toString(mPort));
-    // element.addAttribute("type", login.getType() == LoginType.CAARRAY ? "caarray"
+    // element.addAttribute("type", login.getType() == LoginType.CAARRAY ?
+    // "caarray"
     // : "array_server");
 
     return serverElement;
@@ -240,29 +235,29 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * Load from settings.
    *
    * @return the EDBW login
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  public static EDBWLogin loadFromSettings() throws UnsupportedEncodingException {
+  public static EDBWLogin loadFromSettings()
+      throws UnsupportedEncodingException {
     return loadFromSettings(SettingsService.getInstance());
   }
 
   /**
    * Load from settings.
    *
-   * @param settings
-   *          the settings
+   * @param settings the settings
    * @return the EDBW login
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  public static EDBWLogin loadFromSettings(Settings settings) throws UnsupportedEncodingException {
+  public static EDBWLogin loadFromSettings(Settings settings)
+      throws UnsupportedEncodingException {
     long epoch = DEFAULT_EPOCH_OFFSET_MS;
     long step = DEFAULT_STEP_SIZE_MS;
 
     String fullKey = settings.getAsString(KEY_SETTING);
 
-    List<String> tokens = TextUtils.fastSplit(fullKey, TextUtils.COLON_DELIMITER);
+    List<String> tokens = TextUtils.fastSplit(fullKey,
+        TextUtils.COLON_DELIMITER);
 
     String key = tokens.get(0);
 
@@ -274,15 +269,20 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
       step = Integer.parseInt(tokens.get(2));
     }
 
-    return create(settings.getAsString(SERVER_SETTING), settings.getAsString(USER_SETTING), fullKey, key, epoch, step);
+    return create(settings.getAsString(SERVER_SETTING),
+        settings.getAsString(USER_SETTING),
+        fullKey,
+        key,
+        epoch,
+        step);
   }
 
   public static void saveSettings(EDBWLogin login) {
     SettingsService.getInstance().setAutoSave(false);
 
     // Key is of the form key:epoch:step
-    String key = Join.on(TextUtils.COLON_DELIMITER).values(login.getKey(), login.getEpoch(), login.getStep())
-        .toString();
+    String key = Join.on(TextUtils.COLON_DELIMITER)
+        .values(login.getKey(), login.getEpoch(), login.getStep()).toString();
 
     SettingsService.getInstance().update(SERVER_SETTING, login.getServer());
     SettingsService.getInstance().update(USER_SETTING, login.getUser());
@@ -299,17 +299,18 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * 
    * @param server
    * @param user
-   * @param fullKey
-   *          Consists of a 32 character key, an epoch offset in ms and a step
-   *          size in ms in the form key:epoch:step which can be parsed.
+   * @param fullKey Consists of a 32 character key, an epoch offset in ms and a
+   *          step size in ms in the form key:epoch:step which can be parsed.
    * @return
    * @throws UnsupportedEncodingException
    */
-  public static EDBWLogin create(String server, String user, String fullKey) throws UnsupportedEncodingException {
+  public static EDBWLogin create(String server, String user, String fullKey)
+      throws UnsupportedEncodingException {
     long epoch = DEFAULT_EPOCH_OFFSET_MS;
     long step = DEFAULT_STEP_SIZE_MS;
 
-    List<String> tokens = TextUtils.fastSplit(fullKey, TextUtils.COLON_DELIMITER);
+    List<String> tokens = TextUtils.fastSplit(fullKey,
+        TextUtils.COLON_DELIMITER);
 
     String key = tokens.get(0);
 
@@ -327,22 +328,20 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   /**
    * Creates the.
    *
-   * @param server
-   *          the server
-   * @param user
-   *          the user
-   * @param key
-   *          the key
-   * @param epoch
-   *          the epoch
-   * @param step
-   *          the step
+   * @param server the server
+   * @param user the user
+   * @param key the key
+   * @param epoch the epoch
+   * @param step the step
    * @return the EDBW login
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  private static EDBWLogin create(String server, String user, String fullKey, String key, long epoch, long step)
-      throws UnsupportedEncodingException {
+  private static EDBWLogin create(String server,
+      String user,
+      String fullKey,
+      String key,
+      long epoch,
+      long step) throws UnsupportedEncodingException {
     return new EDBWLogin(server, user, fullKey, key, epoch, step);
   }
 

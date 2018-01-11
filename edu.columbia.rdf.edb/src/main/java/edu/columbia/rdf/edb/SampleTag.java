@@ -40,12 +40,9 @@ public class SampleTag extends Type {
   /**
    * Instantiates a new sample tag.
    *
-   * @param id
-   *          the id
-   * @param tag
-   *          the tag
-   * @param name
-   *          the name
+   * @param id the id
+   * @param tag the tag
+   * @param name the name
    */
   public SampleTag(int id, Tag tag, String name) {
     super(id, name);

@@ -40,10 +40,8 @@ public class DataViewField extends View implements Comparable<DataViewField> {
   /**
    * Instantiates a new data view field.
    *
-   * @param path
-   *          the path
-   * @param name
-   *          the name
+   * @param path the path
+   * @param name the name
    */
   public DataViewField(Path path, String name) {
     super(name);

@@ -46,18 +46,14 @@ public class Experiment extends Descriptive {
   /**
    * Instantiates a new experiment.
    *
-   * @param id
-   *          the id
-   * @param publicId
-   *          the public id
-   * @param name
-   *          the name
-   * @param description
-   *          the description
-   * @param created
-   *          the created
+   * @param id the id
+   * @param publicId the public id
+   * @param name the name
+   * @param description the description
+   * @param created the created
    */
-  public Experiment(int id, String publicId, String name, String description, Date created) {
+  public Experiment(int id, String publicId, String name, String description,
+      Date created) {
     super(id, name, description, created);
 
     mPublicId = publicId;
@@ -75,12 +71,13 @@ public class Experiment extends Descriptive {
   /**
    * Sort samples by experiment.
    *
-   * @param samples
-   *          the samples
+   * @param samples the samples
    * @return the map
    */
-  public static Map<Experiment, Set<Sample>> sortSamplesByExperiment(final Collection<Sample> samples) {
-    Map<Experiment, Set<Sample>> map = DefaultHashMap.create(new TreeSetCreator<Sample>());
+  public static Map<Experiment, Set<Sample>> sortSamplesByExperiment(
+      final Collection<Sample> samples) {
+    Map<Experiment, Set<Sample>> map = DefaultHashMap
+        .create(new TreeSetCreator<Sample>());
 
     for (Sample sample : samples) {
       map.get(sample.getExperiment()).add(sample);
