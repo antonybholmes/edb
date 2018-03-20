@@ -39,7 +39,7 @@ import org.jebtk.core.network.UrlBuilder;
  * 
  * @author Antony Holmes Holmes
  */
-public class OTKAuthUrl {
+public class TOTPAuthUrl {
 
   /** The m salt. */
   long mCounter = -1;
@@ -71,7 +71,7 @@ public class OTKAuthUrl {
    * @param epoch the epoch
    * @param step the step
    */
-  public OTKAuthUrl(UrlBuilder url, String user, String key, long epoch,
+  public TOTPAuthUrl(UrlBuilder url, String user, String key, long epoch,
       long step) {
     mUrl = url;
     mUser = user;
@@ -99,10 +99,10 @@ public class OTKAuthUrl {
       int totp = TOTP.generateCTOTP6(mKey, counter); // toptCounter256(mKey,
                                                      // counter);
 
-      // Format the totp to ensure 8 digits
+      // Format the totp to ensure 6 digits
       String formattedTotp = String.format("%06d", totp);
 
-      mRestAuthUrl = mUrl.param("u", mUser).param("totp", formattedTotp);
+      mRestAuthUrl = mUrl.param("key", mUser).param("totp", formattedTotp);
       // .resolve(mUser)
       // .resolve(formattedTotp);
 

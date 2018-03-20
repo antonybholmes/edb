@@ -60,16 +60,16 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   // private UrlBuilder mAuthUrl;
 
   /** The m key. */
-  private String mKey;
+  private String mTotpPhrase;
 
   /** The m rest auth url. */
   // private UrlBuilder mRestAuthUrl;
 
   /** The m user. */
-  private String mUser;
+  private String mKey;
 
   /** The m totp auth url. */
-  private OTKAuthUrl mOTKAuthUrl;
+  private TOTPAuthUrl mOTKAuthUrl;
 
   /** The m url. */
   private UrlBuilder mUrl;
@@ -77,16 +77,16 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   /** The m api url. */
   private UrlBuilder mApiUrl;
 
-  private String mFullKey;
+  private String mTotp;
 
   /** The Constant LOG. */
   private static final Logger LOG = LoggerFactory.getLogger(EDBWLogin.class);
 
   public static final String SERVER_SETTING = "edbw.server";
 
-  public static final String USER_SETTING = "edbw.user";
-
   public static final String KEY_SETTING = "edbw.key";
+
+  public static final String TOTP_SETTING = "edbw.totp";
 
   public static final String EPOCH_SETTING = "edbw.totp.epoch.offset.ms";
 
@@ -100,18 +100,18 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * Instantiates a new EDBW login.
    *
    * @param server the server
-   * @param user the user
-   * @param key the key
+   * @param key the user
+   * @param totpPhrase the key
    * @param epoch the epoch
    * @param step the step
    * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  protected EDBWLogin(String server, String user, String fullKey, String key,
+  protected EDBWLogin(String server, String key, String totp, String totpPhrase,
       long epoch, long step) throws UnsupportedEncodingException {
     mServer = server;
-    mUser = user;
-    mFullKey = fullKey;
     mKey = key;
+    mTotp = totp;
+    mTotpPhrase = totpPhrase;
 
     mUrl = new UrlBuilder(server);
 
@@ -123,7 +123,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 
     // mRestAuthUrl = mApiUrl.resolve(getKey());
 
-    mOTKAuthUrl = new OTKAuthUrl(mApiUrl, user, key, epoch, step);
+    mOTKAuthUrl = new TOTPAuthUrl(mApiUrl, key, totpPhrase, epoch, step);
   }
 
   /**
@@ -173,8 +173,8 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     return mServer;
   }
 
-  public String getFullKey() {
-    return mFullKey;
+  public String getTOTP() {
+    return mTotp;
   }
 
   /**
@@ -182,8 +182,8 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @return the key
    */
-  public String getKey() {
-    return mKey;
+  public String getTOTPPhrase() {
+    return mTotpPhrase;
   }
 
   /*
@@ -209,8 +209,8 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @return the user
    */
-  public String getUser() {
-    return mUser;
+  public String getKey() {
+    return mKey;
   }
 
   /**
@@ -254,12 +254,12 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     long epoch = DEFAULT_EPOCH_OFFSET_MS;
     long step = DEFAULT_STEP_SIZE_MS;
 
-    String fullKey = settings.getAsString(KEY_SETTING);
+    String totp = settings.getAsString(TOTP_SETTING);
 
-    List<String> tokens = TextUtils.fastSplit(fullKey,
+    List<String> tokens = TextUtils.fastSplit(totp,
         TextUtils.COLON_DELIMITER);
 
-    String key = tokens.get(0);
+    String phrase = tokens.get(0);
 
     if (tokens.size() > 1) {
       epoch = Integer.parseInt(tokens.get(1));
@@ -270,9 +270,9 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     }
 
     return create(settings.getAsString(SERVER_SETTING),
-        settings.getAsString(USER_SETTING),
-        fullKey,
-        key,
+        settings.getAsString(KEY_SETTING),
+        totp,
+        phrase,
         epoch,
         step);
   }
@@ -281,12 +281,12 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     SettingsService.getInstance().setAutoSave(false);
 
     // Key is of the form key:epoch:step
-    String key = Join.on(TextUtils.COLON_DELIMITER)
-        .values(login.getKey(), login.getEpoch(), login.getStep()).toString();
+    String totp = Join.on(TextUtils.COLON_DELIMITER)
+        .values(login.getTOTPPhrase(), login.getEpoch(), login.getStep()).toString();
 
     SettingsService.getInstance().update(SERVER_SETTING, login.getServer());
-    SettingsService.getInstance().update(USER_SETTING, login.getUser());
-    SettingsService.getInstance().update(KEY_SETTING, key);
+    SettingsService.getInstance().update(KEY_SETTING, login.getKey());
+    SettingsService.getInstance().update(TOTP_SETTING, totp);
     // SettingsService.getInstance().update(EPOCH_SETTING,
     // login.getEpoch());
     // SettingsService.getInstance().update(TOTP_STEP_SIZE_SETTING,
@@ -298,21 +298,21 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * Create a new login from the server, user, and key details.
    * 
    * @param server
-   * @param user
-   * @param fullKey Consists of a 32 character key, an epoch offset in ms and a
+   * @param key
+   * @param totp Consists of a 32 character key, an epoch offset in ms and a
    *          step size in ms in the form key:epoch:step which can be parsed.
    * @return
    * @throws UnsupportedEncodingException
    */
-  public static EDBWLogin create(String server, String user, String fullKey)
+  public static EDBWLogin create(String server, String key, String totp)
       throws UnsupportedEncodingException {
     long epoch = DEFAULT_EPOCH_OFFSET_MS;
     long step = DEFAULT_STEP_SIZE_MS;
 
-    List<String> tokens = TextUtils.fastSplit(fullKey,
+    List<String> tokens = TextUtils.fastSplit(totp,
         TextUtils.COLON_DELIMITER);
 
-    String key = tokens.get(0);
+    String totpPhrase = tokens.get(0);
 
     if (tokens.size() > 1) {
       epoch = Integer.parseInt(tokens.get(1));
@@ -322,27 +322,27 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
       step = Integer.parseInt(tokens.get(2));
     }
 
-    return create(server, user, fullKey, key, epoch, step);
+    return create(server, key, totp, totpPhrase, epoch, step);
   }
 
   /**
    * Creates the.
    *
    * @param server the server
-   * @param user the user
-   * @param key the key
+   * @param key the user
+   * @param totpPhrase the key
    * @param epoch the epoch
    * @param step the step
    * @return the EDBW login
    * @throws UnsupportedEncodingException the unsupported encoding exception
    */
   private static EDBWLogin create(String server,
-      String user,
-      String fullKey,
       String key,
+      String totp,
+      String totpPhrase,
       long epoch,
       long step) throws UnsupportedEncodingException {
-    return new EDBWLogin(server, user, fullKey, key, epoch, step);
+    return new EDBWLogin(server, key, totp, totpPhrase, epoch, step);
   }
 
 }
