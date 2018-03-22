@@ -45,10 +45,10 @@ public class TOTPAuthUrl {
   long mCounter = -1;
 
   /** The m user. */
-  private String mUser;
+  private String mKey;
 
   /** The m key. */
-  private String mKey;
+  private String mTotpPhrase;
 
   /** The m step. */
   private long mStep;
@@ -66,18 +66,23 @@ public class TOTPAuthUrl {
    * Instantiates a new totp auth url.
    *
    * @param url the url
-   * @param user the user
-   * @param key the key
+   * @param key the user
+   * @param phrase the key
    * @param epoch the epoch
    * @param step the step
    */
-  public TOTPAuthUrl(UrlBuilder url, String user, String key, long epoch,
+  public TOTPAuthUrl(UrlBuilder url, String key, String phrase, long epoch,
       long step) {
     mUrl = url;
-    mUser = user;
     mKey = key;
+    mTotpPhrase = phrase;
     mEpoch = epoch;
     mStep = step;
+  }
+
+  public TOTPAuthUrl(UrlBuilder url, EDBWLogin login) {
+    this(url, login.getKey(), login.getTOTPPhrase(),
+        login.getEpoch(), login.getStep());
   }
 
   /**
@@ -96,13 +101,13 @@ public class TOTPAuthUrl {
       // since it will not change during the bin duration.
 
       // Generate an 6 digit totp code
-      int totp = TOTP.generateCTOTP6(mKey, counter); // toptCounter256(mKey,
+      int totp = TOTP.generateCTOTP6(mTotpPhrase, counter); // toptCounter256(mKey,
                                                      // counter);
 
       // Format the totp to ensure 6 digits
       String formattedTotp = String.format("%06d", totp);
 
-      mRestAuthUrl = mUrl.param("key", mUser).param("totp", formattedTotp);
+      mRestAuthUrl = mUrl.param("key", mKey).param("totp", formattedTotp);
       // .resolve(mUser)
       // .resolve(formattedTotp);
 
