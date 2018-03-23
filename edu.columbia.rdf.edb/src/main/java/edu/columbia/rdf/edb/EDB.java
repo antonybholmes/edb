@@ -11,7 +11,8 @@ import javax.sql.DataSource;
 
 public class EDB {
   public static final String HEADING_EXPERIMENT = "e"; // "exp";
-  public static final String HEADING_NAME = "n"; // "name";
+  public static final String HEADING_NAME = "name"; // "name";
+  public static final String HEADING_NAME_SHORT = "n"; // "name";
   public static final String HEADING_SAMPLE_ID = "sid";
   public static final String HEADING_ATTRIBUTE_ID = "attribute_id";
   public static final String HEADING_ARRAY_DESIGN_ID = "array_design_id";
