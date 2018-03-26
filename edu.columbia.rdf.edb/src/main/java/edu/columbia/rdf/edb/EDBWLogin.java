@@ -60,7 +60,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   // private UrlBuilder mAuthUrl;
 
   /** The m key. */
-  private String mTotpPhrase;
+  private String mPhrase;
 
   /** The m rest auth url. */
   // private UrlBuilder mRestAuthUrl;
@@ -69,15 +69,19 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   private String mKey;
 
   /** The m totp auth url. */
-  private TOTPAuthUrl mOTKAuthUrl;
+  //private TOTPAuthUrl mTOTPAuthUrl;
 
   /** The m url. */
   private UrlBuilder mUrl;
 
   /** The m api url. */
-  private UrlBuilder mApiUrl;
+ // private UrlBuilder mApiUrl;
 
   private String mTotp;
+
+  private long mEpoch;
+
+  private long mStep;
 
   /** The Constant LOG. */
   private static final Logger LOG = LoggerFactory.getLogger(EDBWLogin.class);
@@ -101,29 +105,29 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @param server the server
    * @param key the user
-   * @param totpPhrase the key
+   * @param phrase the  TOTP phrase
    * @param epoch the epoch
    * @param step the step
    * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  protected EDBWLogin(String server, String key, String totp, String totpPhrase,
-      long epoch, long step) throws UnsupportedEncodingException {
+  protected EDBWLogin(String server, String key, String totp, String phrase,
+      long epoch, long step) {
     mServer = server;
     mKey = key;
     mTotp = totp;
-    mTotpPhrase = totpPhrase;
+    mPhrase = phrase;
+    mEpoch = epoch;
+    mStep = step;
 
-    mUrl = new UrlBuilder(server);
-
-    mApiUrl = mUrl.resolve("api").resolve("v1");
+    mUrl = new UrlBuilder(server).resolve("api").resolve("v1").param(new KeyParam(mKey)).param(new TOTPParam(phrase, epoch, step));
 
     // mAuthUrl = new UrlBuilder(mApiUrl).resolve("auth");
 
-    LOG.info("Login URL: {}", mApiUrl);
+    LOG.info("Login URL: {}", mUrl);
 
     // mRestAuthUrl = mApiUrl.resolve(getKey());
 
-    mOTKAuthUrl = new TOTPAuthUrl(mApiUrl, key, totpPhrase, epoch, step);
+    //mTOTPAuthUrl = new TOTPAuthUrl(mApiUrl, key, totpPhrase, epoch, step);
   }
 
   /**
@@ -131,7 +135,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @return the url
    */
-  public final UrlBuilder getUrl() {
+  public final UrlBuilder getURL() {
     return mUrl;
   }
 
@@ -140,9 +144,9 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @return the api url
    */
-  public final UrlBuilder getApiUrl() {
-    return mApiUrl;
-  }
+  //public final UrlBuilder getUrl() {
+  //  return mApiUrl;
+  //}
 
   /**
    * Gets the auth url.
@@ -160,9 +164,10 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * @return the totp auth url
    * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  public final UrlBuilder getOTKAuthUrl() throws UnsupportedEncodingException {
-    return mOTKAuthUrl.getOTKAuthUrl();
-  }
+  //@Override
+  //public UrlBuilder getTOTPAuthUrl() {
+  //  return mTOTPAuthUrl.getTOTPAuthUrl();
+  //}
 
   /**
    * Gets the server.
@@ -183,7 +188,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * @return the key
    */
   public String getTOTPPhrase() {
-    return mTotpPhrase;
+    return mPhrase;
   }
 
   /*
@@ -219,7 +224,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * @return the epoch
    */
   public long getEpoch() {
-    return mOTKAuthUrl.getEpoch();
+    return mEpoch;
   }
 
   /**
@@ -228,7 +233,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * @return the step
    */
   public long getStep() {
-    return mOTKAuthUrl.getStep();
+    return mStep;
   }
 
   /**

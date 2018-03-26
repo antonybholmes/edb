@@ -129,7 +129,7 @@ public abstract class CountAssembly {
   }
 
   /**
-   * Gets the counts.
+   * Gets the counts within a region or window.
    *
    * @param region the region
    * @param window the window
