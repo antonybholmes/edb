@@ -37,7 +37,6 @@ import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts using a multi resolution file.
  *

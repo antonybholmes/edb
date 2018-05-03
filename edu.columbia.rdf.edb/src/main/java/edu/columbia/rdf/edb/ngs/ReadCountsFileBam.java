@@ -43,7 +43,6 @@ import htsjdk.samtools.SAMRecordIterator;
 import htsjdk.samtools.SamReader;
 import htsjdk.samtools.SamReaderFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts using a multi resolution file.
  *

@@ -42,7 +42,6 @@ import org.jebtk.core.collections.DefaultTreeMap;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.json.Json;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts using a multi resolution file.
  *

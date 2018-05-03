@@ -40,7 +40,6 @@ import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.collections.DefaultTreeMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes values stored at positions in a tree.
  *

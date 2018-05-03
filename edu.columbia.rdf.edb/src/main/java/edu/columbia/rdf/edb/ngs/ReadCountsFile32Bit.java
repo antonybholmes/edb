@@ -34,7 +34,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.jebtk.bioinformatics.dna.GenomeAssemblyDir;
+import org.jebtk.bioinformatics.dna.FileSequenceReader;
 import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.core.collections.DefaultHashMap;
@@ -42,7 +42,6 @@ import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.io.FileUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts per base from a 2 byte per base count file.
  *
@@ -200,7 +199,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s / 2, e / 2);
+    byte[] buf = FileSequenceReader.getBytes(file, s / 2, e / 2);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -230,7 +229,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s, e);
+    byte[] buf = FileSequenceReader.getBytes(file, s, e);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -251,7 +250,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int l = e - s + 1;
 
     // We need one extra byte since the last coordinate can span 2 bytes
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s * 3 / 2, e * 3 / 2 + 1);
+    byte[] buf = FileSequenceReader.getBytes(file, s * 3 / 2, e * 3 / 2 + 1);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -320,7 +319,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s * 2, e * 2 + 1);
+    byte[] buf = FileSequenceReader.getBytes(file, s * 2, e * 2 + 1);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -345,7 +344,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int l = e - s + 1;
 
     // We need one extra byte since the last coordinate can span 2 bytes
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s * 5 / 2, e * 5 / 2 + 2);
+    byte[] buf = FileSequenceReader.getBytes(file, s * 5 / 2, e * 5 / 2 + 2);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -391,7 +390,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s * 3, e * 3 + 2);
+    byte[] buf = FileSequenceReader.getBytes(file, s * 3, e * 3 + 2);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 
@@ -416,7 +415,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = GenomeAssemblyDir.getBytes(file, s * 4, e * 4 + 3);
+    byte[] buf = FileSequenceReader.getBytes(file, s * 4, e * 4 + 3);
 
     List<Integer> scores = new ArrayList<Integer>(l);
 

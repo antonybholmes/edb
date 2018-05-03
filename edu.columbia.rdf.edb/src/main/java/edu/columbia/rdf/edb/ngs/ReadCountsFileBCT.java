@@ -44,7 +44,6 @@ import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.sys.SysUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts using a multi resolution file.
  *

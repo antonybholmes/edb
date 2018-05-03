@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Path;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes values stored at positions in a tree.
  *

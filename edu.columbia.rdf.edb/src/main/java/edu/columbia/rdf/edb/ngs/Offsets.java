@@ -15,7 +15,6 @@
  */
 package edu.columbia.rdf.edb.ngs;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Offsets.
  */

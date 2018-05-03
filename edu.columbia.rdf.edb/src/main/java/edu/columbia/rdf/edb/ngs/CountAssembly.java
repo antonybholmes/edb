@@ -34,7 +34,6 @@ import java.util.List;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class CountAssembly.
  */

@@ -39,7 +39,6 @@ import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.sys.SysUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes counts using a multi resolution file.
  *

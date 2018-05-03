@@ -100,6 +100,11 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
 
   private static final long DEFAULT_STEP_SIZE_MS = 3600000;
 
+  
+  public EDBWLogin(EDBWLogin login) {
+    this(login.mServer, login.mKey, login.mTotp, login.mPhrase, login.mEpoch, login.mStep);
+  }
+  
   /**
    * Instantiates a new EDBW login.
    *
@@ -110,7 +115,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    * @param step the step
    * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  protected EDBWLogin(String server, String key, String totp, String phrase,
+  public EDBWLogin(String server, String key, String totp, String phrase,
       long epoch, long step) {
     mServer = server;
     mKey = key;

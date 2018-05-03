@@ -37,7 +37,6 @@ import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.json.Json;
 
-// TODO: Auto-generated Javadoc
 /**
  * Decodes values stored at positions in a tree.
  *
