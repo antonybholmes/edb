@@ -264,7 +264,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     long epoch = DEFAULT_EPOCH_OFFSET_MS;
     long step = DEFAULT_STEP_SIZE_MS;
 
-    String totp = settings.getAsString(TOTP_SETTING);
+    String totp = settings.getString(TOTP_SETTING);
 
     List<String> tokens = TextUtils.fastSplit(totp,
         TextUtils.COLON_DELIMITER);
@@ -279,8 +279,8 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
       step = Integer.parseInt(tokens.get(2));
     }
 
-    return create(settings.getAsString(SERVER_SETTING),
-        settings.getAsString(KEY_SETTING),
+    return create(settings.getString(SERVER_SETTING),
+        settings.getString(KEY_SETTING),
         totp,
         phrase,
         epoch,

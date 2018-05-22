@@ -81,7 +81,7 @@ public class ReadCountsFileBRT3 extends ReadCountsFileBinTree {
     super(metaFile);
 
     try {
-      mReads = Json.fromJson(mMetaFile).getAsInt("Mapped Reads");
+      mReads = Json.fromJson(mMetaFile).getInt("Mapped Reads");
     } catch (IOException e) {
       e.printStackTrace();
     }

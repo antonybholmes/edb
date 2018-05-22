@@ -87,7 +87,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
     mDirectory = metaFile.getParent();
 
     try {
-      mGenome = Json.fromJson(metaFile).getAsString("Genome");
+      mGenome = Json.fromJson(metaFile).getString("Genome");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -110,7 +110,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
    */
   @Override
   public String getGenome() throws IOException {
-    return mGenome; // Json.parse(mMetaFile).getAsString("Genome");
+    return mGenome; // Json.parse(mMetaFile).getString("Genome");
   }
 
   /**
