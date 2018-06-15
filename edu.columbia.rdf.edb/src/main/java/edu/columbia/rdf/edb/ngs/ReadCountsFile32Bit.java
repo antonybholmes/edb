@@ -147,13 +147,11 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
       }
     }
 
+    System.err.println("read 32 " + chr + " " + window + " " + mFileMap.get(chr).containsKey(window));
+    
+    // Extract from file with appropriate bit depth
     if (mFileMap.get(chr).containsKey(window)) {
       switch (mBitMap.get(chr).get(window)) {
-      case 32:
-        return getCounts32(mFileMap.get(chr).get(window),
-            region.getStart(),
-            region.getEnd(),
-            window);
       case 24:
         return getCounts24(mFileMap.get(chr).get(window),
             region.getStart(),
@@ -179,8 +177,14 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
             region.getStart(),
             region.getEnd(),
             window);
-      default:
+      case 4:
         return getCounts4(mFileMap.get(chr).get(window),
+            region.getStart(),
+            region.getEnd(),
+            window);
+      default:
+        // Default assume 32bit numbers
+        return getCounts32(mFileMap.get(chr).get(window),
             region.getStart(),
             region.getEnd(),
             window);
@@ -398,7 +402,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     for (int i = 0; i < l; ++i) {
       scores
-          .add((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0b11111111));
+      .add((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0b11111111));
 
       p += 3;
     }
