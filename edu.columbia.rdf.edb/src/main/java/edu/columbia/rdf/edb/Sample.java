@@ -57,13 +57,13 @@ public class Sample extends Dated implements FormattedTxt {
       .create("/ChIP-Seq/Sample/Genome");
 
   /** The m experiment. */
-  private Experiment mExperiment;
+  private final Experiment mExperiment;
 
   /** The m expression. */
-  private Type mExpression = null;
+  private final Type mExpression;
 
   /** The m organism. */
-  private Species mOrganism = null;
+  private final Species mOrganism;
 
   /** The m geo. */
   protected GEO mGeo = null;
@@ -125,11 +125,12 @@ public class Sample extends Dated implements FormattedTxt {
   }
 
   /**
-   * Gets the expression type.
+   * Returns the sample data type indicating whether it is Microarray,
+   * Chipseq or RNA-seq
    *
    * @return the expression type
    */
-  public Type getExpressionType() {
+  public Type getDataType() {
     return mExpression;
   }
 

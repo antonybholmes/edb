@@ -37,8 +37,7 @@ public class TOTPParam extends Param {
    * @param epoch the epoch
    * @param step the step
    */
-  public TOTPParam(String phrase, long epoch,
-      long step) {
+  public TOTPParam(String phrase, long epoch, long step) {
     mTotpPhrase = phrase;
     mEpoch = epoch;
     mStep = step;

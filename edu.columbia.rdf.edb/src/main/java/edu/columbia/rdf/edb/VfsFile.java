@@ -31,13 +31,18 @@ import java.util.Date;
 
 import org.jebtk.core.io.Io;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * A file descriptor represents a file available on the EDB. It does not map to
  * a file on a the local file system, but rather is a reference to a file
  * available through the database. Furthermore the file referenced is by a VFS
  * file id which can be used to determine the
  */
-public class FileDescriptor extends Dated {
+@JsonPropertyOrder({ "id", "n", "t", "d" })
+public class VfsFile extends Dated {
 
   /** The m type. */
   private FileType mType;
@@ -50,7 +55,7 @@ public class FileDescriptor extends Dated {
    * @param type the type
    * @param date the date
    */
-  public FileDescriptor(int id, String name, FileType type, Date date) {
+  public VfsFile(int id, String name, FileType type, Date date) {
     super(id, name, date);
 
     mType = type;
@@ -61,6 +66,7 @@ public class FileDescriptor extends Dated {
    *
    * @return the type
    */
+  @JsonGetter("t")
   public FileType getType() {
     return mType;
   }
@@ -70,6 +76,7 @@ public class FileDescriptor extends Dated {
    *
    * @return the ext
    */
+  @JsonIgnore
   public String getExt() {
     return Io.getFileExt(mName);
   }

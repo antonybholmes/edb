@@ -31,9 +31,13 @@ import java.util.Date;
 
 import org.jebtk.bioinformatics.annotation.Type;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * Dated represents EDB objects that have a date associated with them.
  */
+@JsonPropertyOrder({ "id", "n", "d" })
 public abstract class Dated extends Type {
 
   /** The m date. */
@@ -57,6 +61,7 @@ public abstract class Dated extends Type {
    *
    * @return the date
    */
+  @JsonGetter("d")
   public Date getDate() {
     return mDate;
   }

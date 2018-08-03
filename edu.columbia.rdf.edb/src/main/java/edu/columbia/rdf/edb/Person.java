@@ -27,6 +27,7 @@
  */
 package edu.columbia.rdf.edb;
 
+import org.jebtk.bioinformatics.annotation.Entity;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.text.TextUtils;
 
@@ -105,7 +106,7 @@ public class Person extends Type {
    * bioinformatics. annotation.Type)
    */
   @Override
-  public int compareTo(Type t) {
+  public int compareTo(Entity t) {
     if (t instanceof Person) {
       Person p = (Person) t;
 
