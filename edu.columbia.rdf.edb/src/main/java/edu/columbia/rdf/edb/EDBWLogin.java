@@ -60,13 +60,13 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   // private UrlBuilder mAuthUrl;
 
   /** The m key. */
-  private String mPhrase;
+  private String mPhrase = null;
 
   /** The m rest auth url. */
   // private UrlBuilder mRestAuthUrl;
 
   /** The m user. */
-  private String mKey;
+  private String mKey = null;
 
   /** The m totp auth url. */
   //private TOTPAuthUrl mTOTPAuthUrl;
@@ -124,7 +124,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     mEpoch = epoch;
     mStep = step;
 
-    mUrl = new UrlBuilder(server).resolve("api").resolve("v1").param(new KeyParam(mKey)).param(new TOTPParam(phrase, epoch, step));
+    mUrl = new UrlBuilder(server).resolve("api").resolve("v1").param(new KeyParam(mKey)); //.param(new TOTPParam(phrase, epoch, step));
 
     // mAuthUrl = new UrlBuilder(mApiUrl).resolve("auth");
 
