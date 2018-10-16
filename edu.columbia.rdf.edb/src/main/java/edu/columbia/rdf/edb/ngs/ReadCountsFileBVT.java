@@ -33,11 +33,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
-import org.jebtk.core.Mathematics;
-import org.jebtk.core.collections.CollectionUtils;
+import org.jebtk.core.collections.ArrayUtils;
 import org.jebtk.core.collections.DefaultTreeMap;
 
 /**
@@ -84,9 +84,9 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * bioinformatics .genome.GenomicRegion, int)
    */
   @Override
-  public List<Integer> getCounts(GenomicRegion region, int window)
+  public int[] getCounts(GenomicRegion region, int window)
       throws IOException {
-    return CollectionUtils.double2Int(getValues(region, window));
+    return ArrayUtils.doubleToInt(getValues(region, window));
   }
 
   /*
@@ -96,7 +96,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getStarts(GenomicRegion region, int window)
+  public int[] getStarts(GenomicRegion region, int window)
       throws IOException {
     return getStarts(region.getChr(),
         region.getStart(),
@@ -114,9 +114,9 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getStarts(Chromosome chr, int start, int end, int window)
+  public int[] getStarts(Chromosome chr, int start, int end, int window)
       throws IOException {
-    ArrayList<Integer> starts = new ArrayList<Integer>();
+    List<Integer> starts = new ArrayList<Integer>();
 
     Path file = getFile(chr, window, FILE_EXT);
 
@@ -156,7 +156,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
       in.close();
     }
 
-    return starts;
+    return ArrayUtils.mapToInt(starts);
   }
 
   /*
@@ -166,7 +166,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * bioinformatics .genome.GenomicRegion, int)
    */
   @Override
-  public List<Double> getValues(GenomicRegion region, int window)
+  public double[] getValues(GenomicRegion region, int window)
       throws IOException {
     return getValues(region.getChr(),
         region.getStart(),
@@ -184,7 +184,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Double> getValues(Chromosome chr, int start, int end, int window)
+  public double[] getValues(Chromosome chr, int start, int end, int window)
       throws IOException {
 
     Path file = getFile(chr, window, FILE_EXT);
@@ -195,6 +195,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
 
     List<Double> values = new ArrayList<Double>();
 
+    double[] ret;
     try {
       // first get the buffer offset of the start
 
@@ -223,7 +224,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
           ++b;
         }
 
-        values = getValues(values, so, start, end, window);
+        ret = getValues(values, so, start, end, window);
       } else {
         // Higher resolution so slower to access.
 
@@ -254,13 +255,13 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
 
         // Group by window size
 
-        values = getValues(starts, values, start, end, window);
+        ret = getValues(starts, values, start, end, window);
       }
     } finally {
       in.close();
     }
 
-    return values;
+    return ret;
   }
 
   /*
@@ -284,7 +285,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * @param window the bin size
    * @return the counts
    */
-  private static List<Double> getValues(final List<Integer> starts,
+  private static double[] getValues(final List<Integer> starts,
       final List<Double> values,
       int start,
       int end,
@@ -315,10 +316,10 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
        */
     }
 
-    List<Double> ret = Mathematics.zeros(l);
+    double[] ret = new double[l]; //List<Double> ret = Mathematics.zeros(l);
 
-    for (int bin : map.keySet()) {
-      ret.set(bin, map.get(bin));
+    for (Entry<Integer, Double> item : map.entrySet()) {
+      ret[item.getKey()] = item.getValue(); //ret.set(bin, map.get(bin));
     }
 
     return ret;
@@ -334,7 +335,7 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
    * @param window the window
    * @return the values
    */
-  private static List<Double> getValues(final List<Double> values,
+  private static double[] getValues(final List<Double> values,
       Block startBlock,
       int start,
       int end,
@@ -355,11 +356,13 @@ public class ReadCountsFileBVT extends ReadCountsFileBinTree {
       ++rs;
     }
 
-    List<Double> ret = Mathematics.zeros(l);
+    double[] ret = new double[l]; //StrandList<Double> ret = Mathematics.zeros(l);
 
-    for (int bin : map.keySet()) {
+    for (Entry<Integer, Double> item : map.entrySet()) {
+      Integer bin = item.getKey();
+      
       if (bin >= startBin && bin <= endBin) {
-        ret.set(bin - startBin, map.get(bin));
+        ret[bin - startBin] = item.getValue(); //, map.get(bin));
       }
     }
 

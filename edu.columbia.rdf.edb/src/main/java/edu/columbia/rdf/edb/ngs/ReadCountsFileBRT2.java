@@ -38,6 +38,7 @@ import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.collections.ArrayUtils;
 import org.jebtk.core.collections.DefaultTreeMap;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.json.Json;
@@ -95,7 +96,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getCounts(GenomicRegion region, int window)
+  public int[] getCounts(GenomicRegion region, int window)
       throws IOException {
     return getCounts(region.getChr(),
         region.getStart(),
@@ -113,7 +114,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getCounts(Chromosome chr, int start, int end, int window)
+  public int[] getCounts(Chromosome chr, int start, int end, int window)
       throws IOException {
 
     Path file = getFile(chr, window, FILE_EXT);
@@ -124,8 +125,10 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
 
     RandomAccessFile in = FileUtils.newRandomAccess(file);
 
-    List<Integer> starts = new ArrayList<Integer>();
+    List<Integer> starts = new ArrayList<Integer>(1000);
 
+    int[] ret;
+    
     try {
       // first get the buffer offset of the start
 
@@ -154,7 +157,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
           ++b;
         }
 
-        starts = getCounts(starts, so, start, end, window);
+        ret = getCounts(starts, so, start, end, window);
       } else {
         // Higher resolution so slower to access.
 
@@ -178,13 +181,13 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
         }
 
         // Group by window size
-        starts = binCounts(starts, start, end, window);
+        ret = binCounts(starts, start, end, window);
       }
     } finally {
       in.close();
     }
 
-    return starts;
+    return ret;
   }
 
   /**
@@ -197,7 +200,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @param window the window
    * @return the counts
    */
-  private static List<Integer> getCounts(final List<Integer> counts,
+  private static int[] getCounts(final List<Integer> counts,
       Block startBlock,
       int start,
       int end,
@@ -226,7 +229,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
       }
     }
 
-    return ret;
+    return ArrayUtils.mapToInt(ret);
   }
 
   /*
@@ -236,13 +239,13 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getStarts(GenomicRegion region, int window)
+  public int[] getStarts(GenomicRegion region, int window)
       throws IOException {
     Chromosome chr = region.getChr();
 
     Path file = getFile(chr, window, FILE_EXT);
 
-    List<Integer> starts = getStarts(file,
+    int[] starts = getStarts(file,
         region.getStart(),
         region.getEnd(),
         window,
@@ -258,13 +261,13 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * bioinformatics.genome.GenomicRegion, int)
    */
   @Override
-  public List<Strand> getStrands(GenomicRegion region, int window)
+  public Strand[] getStrands(GenomicRegion region, int window)
       throws IOException {
     Chromosome chr = region.getChr();
 
     Path file = getFile(chr, window, FILE_EXT);
 
-    List<Strand> strands = getStrands(file,
+    Strand[] strands = getStrands(file,
         region.getStart(),
         region.getEnd(),
         window,
@@ -279,7 +282,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @see edu.columbia.rdf.htsview.ngs.CountAssembly#getReadCount()
    */
   @Override
-  public int getReadCount() {
+  public int getReadCount(String genome, int window) {
     return mReads;
   }
 
@@ -294,7 +297,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  private static List<Integer> getStarts(final Path file,
+  private static int[] getStarts(final Path file,
       int start,
       int end,
       int window,
@@ -302,7 +305,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
 
     RandomAccessFile in = new RandomAccessFile(file.toFile(), "r");
 
-    List<Integer> starts = new ArrayList<Integer>();
+    List<Integer> starts = new ArrayList<Integer>(1000);
 
     Block so;
     Block eo;
@@ -351,7 +354,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
     // so.startOffset + " " + so.bin + " " + eo.endOffset + " " + eo.bin + " " +
     // window);
 
-    return starts;
+    return ArrayUtils.mapToInt(starts);
   }
 
   /**
@@ -365,23 +368,23 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @return the strands
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  private static List<Strand> getStrands(final Path file,
+  private static Strand[] getStrands(final Path file,
       int start,
       int end,
       int window,
       int dataOffset) throws IOException {
 
-    List<Byte> params = getFlags(file, start, end, window, dataOffset);
+    byte[] params = getFlags(file, start, end, window, dataOffset);
 
     // System.err.println("flags:" + params);
 
-    List<Strand> strands = new ArrayList<Strand>(params.size());
+    Strand[] strands = new Strand[params.length];
 
-    for (byte b : params) {
-      if ((b & FLAG_STRAND_MASK) == FLAG_STRAND_MASK) {
-        strands.add(Strand.ANTISENSE);
+    for (int i = 0; i < params.length; ++i) {
+      if ((params[i] & FLAG_STRAND_MASK) == FLAG_STRAND_MASK) {
+        strands[i] = Strand.ANTISENSE;
       } else {
-        strands.add(Strand.SENSE);
+        strands[i] = Strand.SENSE;
       }
     }
 
@@ -399,7 +402,7 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
    * @return the flags
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  private static List<Byte> getFlags(final Path file,
+  private static byte[] getFlags(final Path file,
       int start,
       int end,
       int window,
@@ -438,6 +441,6 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
       in.close();
     }
 
-    return flags;
+    return ArrayUtils.mapToByte(flags);
   }
 }

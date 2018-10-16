@@ -29,9 +29,7 @@ package edu.columbia.rdf.edb.ngs;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.jebtk.bioinformatics.genomic.Chromosome;
@@ -74,7 +72,7 @@ public class ReadCountsFile8Bit extends ReadCountsFile {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getCounts(GenomicRegion region, int window)
+  public int[] getCounts(GenomicRegion region, int window)
       throws IOException {
     Chromosome chr = region.getChr();
 
@@ -99,7 +97,7 @@ public class ReadCountsFile8Bit extends ReadCountsFile {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  private static List<Integer> getCounts(final Path file,
+  private static int[] getCounts(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -110,10 +108,10 @@ public class ReadCountsFile8Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s, e);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     for (int i = 0; i < l; ++i) {
-      scores.add((int) buf[i]);
+      scores[i] = (int) buf[i];
     }
 
     return scores;

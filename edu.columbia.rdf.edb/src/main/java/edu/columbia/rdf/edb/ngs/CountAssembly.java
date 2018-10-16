@@ -28,16 +28,17 @@
 package edu.columbia.rdf.edb.ngs;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
+import org.jebtk.core.collections.ArrayUtils;
 
 /**
  * The class CountAssembly.
  */
 public abstract class CountAssembly {
+
+  public static final Strand[] EMPTY_STRAND_ARRAY = {};
 
   /**
    * Gets the starts.
@@ -47,7 +48,7 @@ public abstract class CountAssembly {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getStarts(String genome, String region, int window)
+  public int[] getStarts(String genome, String region, int window)
       throws IOException {
     return getStarts(GenomicRegion.parse(genome, region), window);
   }
@@ -60,9 +61,9 @@ public abstract class CountAssembly {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getStarts(GenomicRegion region, int window)
+  public int[] getStarts(GenomicRegion region, int window)
       throws IOException {
-    return Collections.emptyList();
+    return ArrayUtils.EMPTY_INT_ARRAY; //Collections.emptyList();
   }
 
   /**
@@ -73,7 +74,7 @@ public abstract class CountAssembly {
    * @return the strands
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Strand> getStrands(String genome, String region, int window)
+  public Strand[] getStrands(String genome, String region, int window)
       throws IOException {
     return getStrands(GenomicRegion.parse(genome, region), window);
   }
@@ -86,9 +87,9 @@ public abstract class CountAssembly {
    * @return the strands
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Strand> getStrands(GenomicRegion region, int window)
+  public Strand[] getStrands(GenomicRegion region, int window)
       throws IOException {
-    return Collections.emptyList();
+    return EMPTY_STRAND_ARRAY; //Collections.emptyList();
   }
 
   /**
@@ -98,7 +99,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getCounts(String genome, String region)
+  public int[] getCounts(String genome, String region)
       throws IOException {
     return getCounts(genome, region, 1);
   }
@@ -111,7 +112,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getCounts(String genome, String region, int window)
+  public int[] getCounts(String genome, String region, int window)
       throws IOException {
     return getCounts(GenomicRegion.parse(genome, region), window);
   }
@@ -123,7 +124,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getCounts(GenomicRegion region) throws IOException {
+  public int[] getCounts(GenomicRegion region) throws IOException {
     return getCounts(region, 1);
   }
 
@@ -135,7 +136,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public abstract List<Integer> getCounts(GenomicRegion region, int window)
+  public abstract int[] getCounts(GenomicRegion region, int window)
       throws IOException;
 
   /**
@@ -146,7 +147,7 @@ public abstract class CountAssembly {
    * @return the values
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Double> getValues(String genome, String region, int window)
+  public double[] getValues(String genome, String region, int window)
       throws IOException {
     return getValues(GenomicRegion.parse(genome, region), window);
   }
@@ -158,7 +159,7 @@ public abstract class CountAssembly {
    * @return the values
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Double> getValues(GenomicRegion region) throws IOException {
+  public double[] getValues(GenomicRegion region) throws IOException {
     return getValues(region, 1);
   }
 
@@ -170,9 +171,9 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Double> getValues(GenomicRegion region, int window)
+  public double[] getValues(GenomicRegion region, int window)
       throws IOException {
-    return Collections.emptyList();
+    return ArrayUtils.EMPTY_DOUBLE_ARRAY; //Collections.emptyList();
   }
 
   /**
@@ -195,8 +196,9 @@ public abstract class CountAssembly {
    * Should return the number of reads in the library.
    *
    * @return the read count
+   * @throws IOException 
    */
-  public int getReadCount() {
+  public int getReadCount(String genome, int window) throws IOException {
     return -1;
   }
 

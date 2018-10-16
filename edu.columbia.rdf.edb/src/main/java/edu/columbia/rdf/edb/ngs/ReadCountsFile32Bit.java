@@ -37,6 +37,7 @@ import java.util.Map;
 import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.FileSequenceReader;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
+import org.jebtk.core.collections.ArrayUtils;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.IterMap;
@@ -90,7 +91,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getCounts(GenomicRegion region, int window)
+  public int[] getCounts(GenomicRegion region, int window)
       throws IOException {
     Chromosome chr = region.getChr();
 
@@ -136,8 +137,6 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
                   if (FileUtils.exists(file)) {
                     mFileMap.get(chr).put(window, file);
                     mBitMap.get(chr).put(window, 32);
-                  } else {
-                    // Do nothing
                   }
                 }
               }
@@ -190,11 +189,11 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
             window);
       }
     } else {
-      return Collections.emptyList();
+      return ArrayUtils.EMPTY_INT_ARRAY; //Collections.emptyList();
     }
   }
 
-  private static List<Integer> getCounts4(final Path file,
+  private static int[] getCounts4(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -205,7 +204,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s / 2, e / 2);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     boolean even = true;
 
@@ -213,9 +212,9 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     for (int i = 0; i < l; ++i) {
       if (even) {
-        scores.add((buf[p] & 0b11110000) >> 4);
+        scores[i] = (buf[p] & 0b11110000) >> 4;
       } else {
-        scores.add(buf[p] & 0b1111);
+        scores[i] = buf[p] & 0b1111;
 
         ++p;
       }
@@ -224,7 +223,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     return scores;
   }
 
-  private static List<Integer> getCounts8(final Path file,
+  private static int[] getCounts8(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -235,16 +234,16 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s, e);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     for (int i = 0; i < l; ++i) {
-      scores.add((int) buf[i]);
+      scores[i] = (int) buf[i];
     }
 
     return scores;
   }
 
-  private static List<Integer> getCounts12(final Path file,
+  private static int[] getCounts12(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -256,8 +255,10 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     // We need one extra byte since the last coordinate can span 2 bytes
     byte[] buf = FileSequenceReader.getBytes(file, s * 3 / 2, e * 3 / 2 + 1);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
-
+    //List<Integer> scores = new ArrayList<Integer>(l);
+    
+    int[] scores = new int[l];
+    
     int p = 0;
 
     // Whether to start at the beginning or end of the byte
@@ -279,7 +280,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
         ++p;
       }
 
-      scores.add(score);
+      scores[i] = score; //scores.add(score);
 
       // if (even) {
       // System.err.println("12bit " + s + " " + (s * 3 / 2) + " " + p + " " +
@@ -314,7 +315,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  private static List<Integer> getCounts16(final Path file,
+  private static int[] getCounts16(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -325,12 +326,12 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s * 2, e * 2 + 1);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     int p = 0;
 
     for (int i = 0; i < l; ++i) {
-      scores.add((buf[p] << 8) | (buf[p + 1] & 0b11111111));
+      scores[i] = ((buf[p] << 8) | (buf[p + 1] & 0b11111111));
 
       p += 2;
     }
@@ -338,7 +339,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     return scores;
   }
 
-  private static List<Integer> getCounts20(final Path file,
+  private static int[] getCounts20(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -350,7 +351,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     // We need one extra byte since the last coordinate can span 2 bytes
     byte[] buf = FileSequenceReader.getBytes(file, s * 5 / 2, e * 5 / 2 + 2);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     int p = 0;
 
@@ -375,7 +376,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
         ++p;
       }
 
-      scores.add(score);
+      scores[i] = score;
 
       ++p;
 
@@ -385,7 +386,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     return scores;
   }
 
-  private static List<Integer> getCounts24(final Path file,
+  private static int[] getCounts24(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -396,13 +397,12 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s * 3, e * 3 + 2);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     int p = 0;
 
     for (int i = 0; i < l; ++i) {
-      scores
-      .add((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0b11111111));
+      scores[i] = ((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0b11111111));
 
       p += 3;
     }
@@ -410,7 +410,7 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     return scores;
   }
 
-  private static List<Integer> getCounts32(final Path file,
+  private static int[] getCounts32(final Path file,
       int start,
       int end,
       int window) throws IOException {
@@ -421,12 +421,12 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
 
     byte[] buf = FileSequenceReader.getBytes(file, s * 4, e * 4 + 3);
 
-    List<Integer> scores = new ArrayList<Integer>(l);
+    int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
     int p = 0;
 
     for (int i = 0; i < l; ++i) {
-      scores.add((buf[p] << 24) | (buf[p + 1] << 16) | (buf[p + 2] << 8)
+      scores[i] = ((buf[p] << 24) | (buf[p + 1] << 16) | (buf[p + 2] << 8)
           | (buf[p + 3] & 0b11111111));
 
       p += 4;

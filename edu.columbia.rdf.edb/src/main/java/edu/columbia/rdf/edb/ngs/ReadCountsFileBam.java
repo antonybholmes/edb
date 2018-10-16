@@ -30,13 +30,13 @@ package edu.columbia.rdf.edb.ngs;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.jebtk.bioinformatics.ext.samtools.SamUtils;
 import org.jebtk.bioinformatics.genomic.Chromosome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
+import org.jebtk.core.collections.ArrayUtils;
 
 import htsjdk.samtools.SAMRecord;
 import htsjdk.samtools.SAMRecordIterator;
@@ -88,7 +88,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getCounts(GenomicRegion region, int window)
+  public int[] getCounts(GenomicRegion region, int window)
       throws IOException {
     return getCounts(region.getChr(),
         region.getStart(),
@@ -106,7 +106,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getCounts(Chromosome chr, int start, int end, int window)
+  public int[] getCounts(Chromosome chr, int start, int end, int window)
       throws IOException {
     return binCounts(getStarts(chr, start, end, window), start, end, window);
   }
@@ -118,7 +118,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * columbia.rdf.lib.bioinformatics.genome.GenomicRegion)
    */
   @Override
-  public List<Integer> getStarts(GenomicRegion region, int window)
+  public int[] getStarts(GenomicRegion region, int window)
       throws IOException {
     return getStarts(region.getChr(),
         region.getStart(),
@@ -136,7 +136,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Integer> getStarts(Chromosome chr, int start, int end, int window)
+  public int[] getStarts(Chromosome chr, int start, int end, int window)
       throws IOException {
 
     List<Integer> starts = new ArrayList<Integer>();
@@ -161,7 +161,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
       } catch (Exception e2) {
         inputSam.close();
 
-        return Collections.emptyList();
+        return ArrayUtils.EMPTY_INT_ARRAY; //Collections.emptyList();
       }
     }
 
@@ -177,7 +177,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
       inputSam.close();
     }
 
-    return starts;
+    return starts.stream().mapToInt(Integer::intValue).toArray(); //starts.;
   }
 
   /*
@@ -187,7 +187,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * bioinformatics.genome.GenomicRegion, int)
    */
   @Override
-  public List<Strand> getStrands(GenomicRegion region, int window)
+  public Strand[] getStrands(GenomicRegion region, int window)
       throws IOException {
     return getStrands(region.getChr(),
         region.getStart(),
@@ -205,7 +205,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * @return the strands
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public List<Strand> getStrands(Chromosome chr, int start, int end, int window)
+  public Strand[] getStrands(Chromosome chr, int start, int end, int window)
       throws IOException {
     SAMRecordIterator iter = null;
 
@@ -227,7 +227,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
       } catch (Exception e2) {
         inputSam.close();
 
-        return Collections.emptyList();
+        return EMPTY_STRAND_ARRAY; //Collections.emptyList();
       }
     }
 
@@ -247,7 +247,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
       inputSam.close();
     }
 
-    return strands;
+    return (Strand[])strands.toArray();
   }
 
   /*
@@ -256,7 +256,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * @see edu.columbia.rdf.htsview.ngs.CountAssembly#getReadCount()
    */
   @Override
-  public int getReadCount() {
+  public int getReadCount(String genome, int window) {
     return mReads;
   }
 

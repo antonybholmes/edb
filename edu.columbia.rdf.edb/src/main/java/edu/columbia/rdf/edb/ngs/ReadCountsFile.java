@@ -15,10 +15,10 @@
  */
 package edu.columbia.rdf.edb.ngs;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.DefaultHashMap;
 
 /**
@@ -39,7 +39,7 @@ public abstract class ReadCountsFile extends CountAssembly {
    * @param window the bin size
    * @return the counts
    */
-  protected static List<Integer> binCounts(final List<Integer> starts,
+  protected static int[] binCounts(final int[] starts,
       int start,
       int end,
       int window) {
@@ -59,10 +59,43 @@ public abstract class ReadCountsFile extends CountAssembly {
       }
     }
 
-    List<Integer> ret = Mathematics.intZeros(l);
+    //List<Integer> ret = Mathematics.intZeros(l);
+    
+    int[] ret = new int[l];
 
-    for (int bin : map.keySet()) {
-      ret.set(bin, map.get(bin));
+    for (Entry<Integer, Integer> item : map.entrySet()) {
+      ret[item.getKey()] = item.getValue(); //, map.get(bin));
+    }
+
+    return ret;
+  }
+  
+  protected static int[] binCounts(final Collection<Integer> starts,
+      int start,
+      int end,
+      int window) {
+    int startBin = start / window;
+    int endBin = end / window;
+    int l = endBin - startBin + 1;
+
+    // System.err.println(start + " " + end + " " + s + " " + e + " " + l);
+
+    Map<Integer, Integer> map = DefaultHashMap.create(0);
+
+    for (int rs : starts) {
+      int sbin = rs / window - startBin;
+
+      if (sbin >= 0 && sbin < l) {
+        map.put(sbin, map.get(sbin) + 1);
+      }
+    }
+
+    //List<Integer> ret = Mathematics.intZeros(l);
+    
+    int[] ret = new int[l];
+
+    for (Entry<Integer, Integer> item : map.entrySet()) {
+      ret[item.getKey()] = item.getValue(); //, map.get(bin));
     }
 
     return ret;
