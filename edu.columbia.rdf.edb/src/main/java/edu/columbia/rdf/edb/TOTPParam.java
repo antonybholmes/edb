@@ -2,7 +2,7 @@ package edu.columbia.rdf.edb;
 
 import org.jebtk.core.TimeUtils;
 import org.jebtk.core.cryptography.TOTP;
-import org.jebtk.core.network.Param;
+import org.jebtk.core.http.Param;
 
 /**
  * Generates a TOTP param that creates random 6 digit verification codes

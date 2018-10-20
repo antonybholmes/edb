@@ -31,7 +31,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.jebtk.core.network.UrlBuilder;
+import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.settings.Settings;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.Join;

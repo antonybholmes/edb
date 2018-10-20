@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb;
 
-import org.jebtk.core.network.StaticParam;
+import org.jebtk.core.http.StaticParam;
 
 /**
  * Generates base authentication URLs. Attempts to only create new URLs if the
