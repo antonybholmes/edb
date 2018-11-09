@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.bioinformatics.genomic.Chromosome;
+import org.jebtk.bioinformatics.genomic.Genome;
+import org.jebtk.bioinformatics.genomic.GenomeService;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.json.Json;
 
@@ -68,7 +70,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
   protected Map<Chromosome, Integer> mReadLengthMap = new HashMap<Chromosome, Integer>();
 
   /** The m genome. */
-  protected String mGenome;
+  protected Genome mGenome;
 
   /** The m meta file. */
   protected Path mMetaFile;
@@ -87,7 +89,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
     mDirectory = metaFile.getParent();
 
     try {
-      mGenome = Json.fromJson(metaFile).getString("Genome");
+      mGenome = GenomeService.getInstance().guessGenome(Json.fromJson(metaFile).getString("Genome"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -109,7 +111,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
    * @see edu.columbia.rdf.htsview.ngs.CountAssembly#getGenome()
    */
   @Override
-  public String getGenome() throws IOException {
+  public Genome getGenome() throws IOException {
     return mGenome; // Json.parse(mMetaFile).getString("Genome");
   }
 
@@ -160,7 +162,7 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
    * @return the string
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public String readGenome(RandomAccessFile in) throws IOException {
+  public Genome readGenome(RandomAccessFile in) throws IOException {
     in.read(GENOME);
 
     // find the first null
@@ -172,6 +174,6 @@ public abstract class ReadCountsFileBin extends ReadCountsFile {
       }
     }
 
-    return new String(GENOME, 0, c);
+    return GenomeService.getInstance().guessGenome(new String(GENOME, 0, c));
   }
 }

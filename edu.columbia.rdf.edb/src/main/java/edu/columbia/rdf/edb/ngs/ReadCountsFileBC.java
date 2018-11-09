@@ -30,19 +30,21 @@ package edu.columbia.rdf.edb.ngs;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.bioinformatics.genomic.Chromosome;
+import org.jebtk.bioinformatics.genomic.Genome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.IterHashMap;
 import org.jebtk.core.collections.IterMap;
+import org.jebtk.core.io.ByteStream;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.PathUtils;
+import org.jebtk.core.text.TextUtils;
 
 /**
  * Decodes counts using a multi resolution file.
@@ -85,6 +87,7 @@ public class ReadCountsFileBC extends ReadCountsFile {
   private Chromosome mChr = null;
   private int mPower = -1;
   private int mReadCount = -1;
+  private String mMode;
 
   /**
    * Directory containing genome files which must be of the form chr.n.txt. Each
@@ -93,7 +96,12 @@ public class ReadCountsFileBC extends ReadCountsFile {
    * @param file the file
    */
   public ReadCountsFileBC(Path bciFile) {
+    this(bciFile, BCMode.COUNT);
+  }
+  
+  public ReadCountsFileBC(Path bciFile, BCMode mode) {
     mDir = bciFile.toAbsolutePath().getParent();
+    mMode = mode.toString().toLowerCase();
   }
 
   /*
@@ -110,7 +118,7 @@ public class ReadCountsFileBC extends ReadCountsFile {
         window);
   }
 
-  private static int[] _get_counts(RandomAccessFile file,
+  private static int[] _getCounts(RandomAccessFile file,
       Chromosome chr,
       int start,
       int end,
@@ -133,26 +141,30 @@ public class ReadCountsFileBC extends ReadCountsFile {
 
     byte[] d = new byte[sn];
 
-    ByteBuffer buffer = ByteBuffer.wrap(d);
-
     file.read(d);
+    
+    //ByteBuffer buffer = ByteBuffer.wrap(d);
+    ByteStream buffer = new ByteStream(d);
 
     int[] ret = new int[n]; // np.zeros(n, dtype=int)
 
     switch (binSize) {
     case 4:
+      // 4 byte int
       for (int i = 0; i < n; ++i) {
-        ret[i] = buffer.getInt();
+        ret[i] = buffer.readInt();
       }
       break;
     case 2:
+      // 2 byte short
       for (int i = 0; i < n; ++i) {
-        ret[i] = buffer.getShort();
+        ret[i] = buffer.readShort();
       }
       break;
     default:
+      // a byte
       for (int i = 0; i < n; ++i) {
-        ret[i] = buffer.get();
+        ret[i] = buffer.read();
       }
       break;
     }
@@ -187,9 +199,7 @@ public class ReadCountsFileBC extends ReadCountsFile {
 
     int binSize = getBinSize(file);
 
-    int[] d = _get_counts(file, chr, s, e, window, binSize); // BinCountReader._get_counts(file,
-    // loc, bin_size,
-    // bin_width=BIN_WIDTH)
+    int[] d = _getCounts(file, chr, s, e, window, binSize);
 
     if (window < MIN_BIN_WIDTH) {
       int sb = start / window;
@@ -300,9 +310,9 @@ public class ReadCountsFileBC extends ReadCountsFile {
    * @see edu.columbia.rdf.htsview.ngs.CountAssembly#getReadCount()
    */
   @Override
-  public int getReadCount(String genome, int window) throws IOException {
+  public int getReadCount(Genome genome, int window) throws IOException {
     if (mReadCount < 1) {
-      Path file = mDir.resolve("reads." + genome  +".bc");
+      Path file = mDir.resolve(TextUtils.cat("reads.", genome, ".", mMode, ".bc"));
 
       DataInputStream r = FileUtils.newDataInputStream(file);
       

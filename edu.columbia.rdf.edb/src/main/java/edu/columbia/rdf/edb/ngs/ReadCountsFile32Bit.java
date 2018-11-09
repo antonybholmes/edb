@@ -28,10 +28,8 @@
 package edu.columbia.rdf.edb.ngs;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.jebtk.bioinformatics.genomic.Chromosome;
@@ -41,6 +39,7 @@ import org.jebtk.core.collections.ArrayUtils;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.IterMap;
+import org.jebtk.core.io.ByteStream;
 import org.jebtk.core.io.FileUtils;
 
 /**
@@ -367,11 +366,9 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
       int score = 0;
 
       if (even) {
-        score = (buf[p] << 12) | (buf[p + 1] << 4)
-            | ((buf[p + 2] & 0b11110000) >> 4);
+        score = (buf[p] << 12) | (buf[p + 1] << 4) | ((buf[p + 2] & 0xF0) >> 4);
       } else {
-        score = ((buf[p] & 0b1111) << 16) | (buf[p + 1] << 8)
-            | (buf[p + 2] & 0b11111111);
+        score = ((buf[p] & 0xF) << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0xFF);
 
         ++p;
       }
@@ -395,16 +392,14 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = FileSequenceReader.getBytes(file, s * 3, e * 3 + 2);
+    byte[] d = FileSequenceReader.getBytes(file, s * 3, e * 3 + 2);
+    
+    ByteStream buf = new ByteStream(d);
 
     int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
-    int p = 0;
-
     for (int i = 0; i < l; ++i) {
-      scores[i] = ((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0b11111111));
-
-      p += 3;
+      scores[i] = buf.readInt24(); //((buf[p] << 16) | (buf[p + 1] << 8) | (buf[p + 2] & 0xFF));
     }
 
     return scores;
@@ -419,17 +414,14 @@ public class ReadCountsFile32Bit extends ReadCountsFile {
     int e = (end - 1) / window;
     int l = e - s + 1;
 
-    byte[] buf = FileSequenceReader.getBytes(file, s * 4, e * 4 + 3);
+    byte[] d = FileSequenceReader.getBytes(file, s * 4, e * 4 + 3);
 
+    ByteBuffer buf = ByteBuffer.wrap(d);
+    
     int[] scores = new int[l]; //List<Integer> scores = new ArrayList<Integer>(l);
 
-    int p = 0;
-
     for (int i = 0; i < l; ++i) {
-      scores[i] = ((buf[p] << 24) | (buf[p + 1] << 16) | (buf[p + 2] << 8)
-          | (buf[p + 3] & 0b11111111));
-
-      p += 4;
+      scores[i] = buf.getInt();
     }
 
     return scores;

@@ -29,6 +29,7 @@ package edu.columbia.rdf.edb.ngs;
 
 import java.io.IOException;
 
+import org.jebtk.bioinformatics.genomic.Genome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
 import org.jebtk.core.collections.ArrayUtils;
@@ -48,7 +49,7 @@ public abstract class CountAssembly {
    * @return the starts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public int[] getStarts(String genome, String region, int window)
+  public int[] getStarts(Genome genome, String region, int window)
       throws IOException {
     return getStarts(GenomicRegion.parse(genome, region), window);
   }
@@ -74,7 +75,7 @@ public abstract class CountAssembly {
    * @return the strands
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public Strand[] getStrands(String genome, String region, int window)
+  public Strand[] getStrands(Genome genome, String region, int window)
       throws IOException {
     return getStrands(GenomicRegion.parse(genome, region), window);
   }
@@ -99,7 +100,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public int[] getCounts(String genome, String region)
+  public int[] getCounts(Genome genome, String region)
       throws IOException {
     return getCounts(genome, region, 1);
   }
@@ -112,7 +113,7 @@ public abstract class CountAssembly {
    * @return the counts
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public int[] getCounts(String genome, String region, int window)
+  public int[] getCounts(Genome genome, String region, int window)
       throws IOException {
     return getCounts(GenomicRegion.parse(genome, region), window);
   }
@@ -147,7 +148,7 @@ public abstract class CountAssembly {
    * @return the values
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public double[] getValues(String genome, String region, int window)
+  public double[] getValues(Genome genome, String region, int window)
       throws IOException {
     return getValues(GenomicRegion.parse(genome, region), window);
   }
@@ -198,7 +199,7 @@ public abstract class CountAssembly {
    * @return the read count
    * @throws IOException 
    */
-  public int getReadCount(String genome, int window) throws IOException {
+  public int getReadCount(Genome genome, int window) throws IOException {
     return -1;
   }
 
@@ -208,7 +209,7 @@ public abstract class CountAssembly {
    * @return the genome
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public String getGenome() throws IOException {
+  public Genome getGenome() throws IOException {
     return null;
   }
 }

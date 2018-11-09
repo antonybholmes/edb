@@ -291,4 +291,14 @@ public class Sample extends Dated implements FormattedTxt {
     return mLocked;
   }
 
+  public static List<Integer> getIds(Collection<Sample> samples) {
+    List<Integer> ids = new ArrayList<Integer>(samples.size());
+    
+    for (Sample sample : samples) {
+      ids.add(sample.mId);
+    }
+    
+    return ids;
+  }
+
 }

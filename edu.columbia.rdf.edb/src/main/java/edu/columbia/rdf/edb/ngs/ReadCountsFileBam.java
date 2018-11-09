@@ -34,6 +34,7 @@ import java.util.List;
 
 import org.jebtk.bioinformatics.ext.samtools.SamUtils;
 import org.jebtk.bioinformatics.genomic.Chromosome;
+import org.jebtk.bioinformatics.genomic.Genome;
 import org.jebtk.bioinformatics.genomic.GenomicRegion;
 import org.jebtk.bioinformatics.genomic.Strand;
 import org.jebtk.core.collections.ArrayUtils;
@@ -256,7 +257,7 @@ public class ReadCountsFileBam extends ReadCountsFile {
    * @see edu.columbia.rdf.htsview.ngs.CountAssembly#getReadCount()
    */
   @Override
-  public int getReadCount(String genome, int window) {
+  public int getReadCount(Genome genome, int window) {
     return mReads;
   }
 
