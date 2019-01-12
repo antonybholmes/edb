@@ -43,7 +43,7 @@ import org.jebtk.core.collections.DefaultTreeMap;
 /**
  * Decodes values stored at positions in a tree.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ReadCountsFileBVT extends ReadCountsFileBinTree {
 

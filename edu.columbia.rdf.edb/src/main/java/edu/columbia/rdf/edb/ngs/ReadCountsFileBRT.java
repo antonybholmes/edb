@@ -41,7 +41,7 @@ import org.jebtk.core.collections.ArrayUtils;
 /**
  * Decodes counts using a multi resolution file.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ReadCountsFileBRT extends ReadCountsFileBinTree {
 

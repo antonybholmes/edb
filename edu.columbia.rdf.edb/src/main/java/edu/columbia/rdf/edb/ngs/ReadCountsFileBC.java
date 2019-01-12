@@ -49,7 +49,7 @@ import org.jebtk.core.text.TextUtils;
 /**
  * Decodes counts using a multi resolution file.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ReadCountsFileBC extends ReadCountsFile {
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016, Antony Holmes
+ * Copyright (c) 2016, Antony Holmes
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,60 +27,15 @@
  */
 package edu.columbia.rdf.edb;
 
-import java.net.URL;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jebtk.bioinformatics.annotation.Type;
 
 /**
- * Server for genome feature annotations.
- *
- * @author Antony Holmes
- *
+ * Represents a group of samples. Used to make easy to access sets so that
+ * users don't have to search for common groups.
+ * 
  */
-public class EDBWLoginService {
-
-  /**
-   * The Class GenesServiceLoader.
-   */
-  private static class EDBWLoginServiceLoader {
-
-    /** The Constant INSTANCE. */
-    private static final EDBWLoginService INSTANCE = new EDBWLoginService();
-  }
-
-  /**
-   * Gets the single instance of SettingsService.
-   *
-   * @return single instance of SettingsService
-   */
-  public static EDBWLoginService getInstance() {
-    return EDBWLoginServiceLoader.INSTANCE;
-  }
-
-  /**
-   * The constant LOG.
-   */
-  private static final Logger LOG = LoggerFactory
-      .getLogger(EDBWLoginService.class);
-  
-  private EDBWLogin mLogin;
-  
-  
-
-  /**
-   * Instantiates a new cytobands.
-   */
-  public EDBWLoginService() {
-    // do nothing
-  }
-  
-  public void setLogin(EDBWLogin login) {
-    mLogin = login;
-  }
-  
-  public EDBWLogin getLogin() {
-    return mLogin;
+public class SampleSet extends Type {
+  public SampleSet(int id, String name) {
+    super(id, name);
   }
 }

@@ -45,7 +45,7 @@ import org.jebtk.core.io.FileUtils;
 /**
  * Decodes counts per base from a 2 byte per base count file.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ReadCountsFile32Bit extends ReadCountsFile {

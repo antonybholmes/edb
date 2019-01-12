@@ -34,7 +34,7 @@ import java.nio.file.Path;
 /**
  * Decodes values stored at positions in a tree.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class ReadCountsFileBinTree extends ReadCountsFileBin {
 

@@ -42,7 +42,7 @@ import org.jebtk.core.json.Json;
 /**
  * Decodes values stored at positions in a tree.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class ReadCountsFileBin extends ReadCountsFile {
 

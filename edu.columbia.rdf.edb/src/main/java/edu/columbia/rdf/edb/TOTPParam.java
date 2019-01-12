@@ -9,7 +9,7 @@ import org.jebtk.core.http.Param;
  * using a choosen phrase and epoch. This will dynamically add a 'totp'
  * param into a URL.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class TOTPParam extends Param {
 

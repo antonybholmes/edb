@@ -40,7 +40,7 @@ import org.jebtk.bioinformatics.genomic.GenomicRegion;
  * Fast search of genome sequence files to get get actual genomic data. This
  * file reads 4bit encoded genomes (i.e. 2 bases per byte).
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ReadCountsFile8Bit extends ReadCountsFile {

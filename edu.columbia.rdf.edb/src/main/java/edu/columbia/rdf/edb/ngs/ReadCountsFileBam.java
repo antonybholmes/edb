@@ -47,7 +47,7 @@ import htsjdk.samtools.SamReaderFactory;
 /**
  * Decodes counts using a multi resolution file.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ReadCountsFileBam extends ReadCountsFile {
 
