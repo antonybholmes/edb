@@ -247,8 +247,12 @@ public class ReadCountsFileBam extends ReadCountsFile {
     } finally {
       inputSam.close();
     }
+    
+    Strand[] ret = new Strand[strands.size()];
 
-    return (Strand[])strands.toArray();
+    strands.toArray(ret);
+    
+    return ret;
   }
 
   /*
