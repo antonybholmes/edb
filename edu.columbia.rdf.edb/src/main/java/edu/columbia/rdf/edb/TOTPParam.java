@@ -1,5 +1,7 @@
 package edu.columbia.rdf.edb;
 
+import java.io.UnsupportedEncodingException;
+
 import org.jebtk.core.TimeUtils;
 import org.jebtk.core.cryptography.TOTP;
 import org.jebtk.core.http.Param;
