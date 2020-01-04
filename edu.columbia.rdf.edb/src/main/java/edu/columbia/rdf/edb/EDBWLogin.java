@@ -31,7 +31,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.jebtk.core.http.UrlBuilder;
+import org.jebtk.core.http.URLPath;
 import org.jebtk.core.settings.Settings;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.Join;
@@ -72,7 +72,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
   //private TOTPAuthUrl mTOTPAuthUrl;
 
   /** The m url. */
-  private UrlBuilder mUrl;
+  private URLPath mUrl;
 
   /** The m api url. */
  // private UrlBuilder mApiUrl;
@@ -124,9 +124,9 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
     mEpoch = epoch;
     mStep = step;
 
-    mUrl = new UrlBuilder(server).resolve("api").resolve("v1").param(new KeyParam(mKey)); //.param(new TOTPParam(phrase, epoch, step));
-
-    // mAuthUrl = new UrlBuilder(mApiUrl).resolve("auth");
+    //mUrl = UrlBuilder.fromUrl(server).resolve("api").resolve("v1").param(new KeyParam(mKey)); //.param(new TOTPParam(phrase, epoch, step));
+    mUrl = URLPath.fromUrl(server).join("api").join("v1").key(mKey).authKey(mKey);
+    // mAuthUrl = UrlBuilder.fromUrl(mApiUrl).resolve("auth");
 
     LOG.info("Login URL: {}", mUrl);
 
@@ -140,7 +140,7 @@ public class EDBWLogin implements XmlRepresentation, Serializable {
    *
    * @return the url
    */
-  public final UrlBuilder getURL() {
+  public final URLPath getURL() {
     return mUrl;
   }
 
