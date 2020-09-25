@@ -375,14 +375,14 @@ public class ReadCountsFileBRT2 extends ReadCountsFileBinTree {
       int window,
       int dataOffset) throws IOException {
 
-    byte[] params = getFlags(file, start, end, window, dataOffset);
+    byte[] props = getFlags(file, start, end, window, dataOffset);
 
-    // System.err.println("flags:" + params);
+    // System.err.println("flags:" + props);
 
-    Strand[] strands = new Strand[params.length];
+    Strand[] strands = new Strand[props.length];
 
-    for (int i = 0; i < params.length; ++i) {
-      if ((params[i] & FLAG_STRAND_MASK) == FLAG_STRAND_MASK) {
+    for (int i = 0; i < props.length; ++i) {
+      if ((props[i] & FLAG_STRAND_MASK) == FLAG_STRAND_MASK) {
         strands[i] = Strand.ANTISENSE;
       } else {
         strands[i] = Strand.SENSE;
